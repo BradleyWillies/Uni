@@ -3,6 +3,7 @@
  */
 package raffle;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -99,10 +100,14 @@ public class TUIRaffle {
 		/* !!!! Make use of an enhanced for statement to obtain the 
 		 * prizes and their winners one-by-one and output an announcement 
 		 * for each prize and its winner. 
-		 * # Answered ln 104 - 106
+		 * # Answered
 		 */
-		for (Map.Entry<Prize, Ticket> entry : winners.entrySet()) {
-				System.out.println(entry.getValue() + "\n" + entry.getKey());
+//		for (Map.Entry<Prize, Ticket> entry : winners.entrySet()) {
+//				System.out.println(entry.getValue() + "\n" + entry.getKey());
+//		}
+		for (Iterator<Map.Entry<Prize, Ticket>> entryIt = winners.entrySet().iterator(); entryIt.hasNext();) {
+			Map.Entry<Prize, Ticket> nextEntry = entryIt.next();
+			System.out.println(nextEntry.getValue() + "\n" + nextEntry.getKey());
 		}
 		
 		System.out.println("Many Congratulations!!");
@@ -132,12 +137,19 @@ public class TUIRaffle {
 		
 		// Set up the raffle
 		System.out.println("> Setting up the raffle...");
-		TUIRaffle tui = new TUIRaffle(new Raffle("Cancer Research"));
+		TUIRaffle tui = new TUIRaffle(new Raffle("Cancer Research", 1.50));
 		
 		// Simulate selling tickets in 5 transactions
 		System.out.println("> Selling tickets...");
-		for (int i = 0; i < 5; i++) {
+//		for (int i = 0; i < 5; i++) {
+//			tui.sellTickets();
+//		}
+		boolean buyingTicket = true;
+		while (buyingTicket) {
 			tui.sellTickets();
+			System.out.println("Is there another ticket transaction? (Y/N)");
+			String nextTransaction = tui.keyboard.nextLine();
+			buyingTicket = nextTransaction.equalsIgnoreCase("Y") ? true : false;
 		}
 		
 		// Draw prizes

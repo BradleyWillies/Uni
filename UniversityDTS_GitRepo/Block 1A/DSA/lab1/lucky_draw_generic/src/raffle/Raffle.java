@@ -4,6 +4,7 @@
 package raffle;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -17,31 +18,34 @@ import java.util.Map;
 public class Raffle {
 
 	private String title;
+	private double ticketPrice;
 	
 	/* !!!! All prizes are kept in a box. 
 	 * Define an instance variable for keeping track of the prizes
 	 * in this raffle.
-	 * # Answered ln 26
+	 * # Answered
 	 */ 
 	private Box<Prize> prizes;
 	
 	/* !!!! All sold tickets are kept in a box. 
 	 * Define an instance variable for keeping track of 
 	 * the tickets that have been sold in this raffle.
-	 * # Answered ln 33
+	 * # Answered
 	 */ 	
 	private Box<Ticket> soldTickets;
 	
-	public Raffle(String title) { 
+	public Raffle(String title, double ticketPrice) { 
 		
 		this.title = "Raffle for " + title;
 		
 		/* !!!! Create two box objects for
 		 * initialising the instance variables here.
-		 * # Answered ln 43 - 44
+		 * # Answered
 		 */
 		prizes = new Box<Prize>();
 		soldTickets = new Box<Ticket>();
+		
+		this.ticketPrice = ticketPrice;
 	}
 
 	/** 
@@ -60,7 +64,7 @@ public class Raffle {
 	public void addPrize(String name, int value) {
 		/* !!!! Complete the implementation for this method
 		 * by invoking the method of a Box object.
-		 * # Answered ln 65
+		 * # Answered 
 		 */
 		prizes.put(new Prize(name, value));
 	}
@@ -72,9 +76,9 @@ public class Raffle {
 	public void sellTicket(String buyer) {
 		/* !!!! Complete the implementation for this method
 		 * by invoking the method of a Box object.
-		 * # Answered ln 77
+		 * # Answered 
 		 */
-		soldTickets.put(new Ticket(buyer));
+		soldTickets.put(new Ticket(buyer, ticketPrice));
 	}
 	
 	/**
@@ -98,11 +102,17 @@ public class Raffle {
 		 * iteration will need to end when the tickets in the ticket 
 		 * box have been exhausted, i.e. when there are more prizes 
 		 * than tickets sold. 
-		 * # Answered ln 103 - 107
+		 * # Answered 
 		 */
-		for (Prize prize : prizes) {
+//		for (Prize prize : prizes) {
+//			if(!soldTickets.isEmpty()) {
+//				winners.put(prize, soldTickets.draw());
+//			}
+//		}
+		
+		for (Iterator<Prize> prizeIt = prizes.iterator(); prizeIt.hasNext();) {
 			if(!soldTickets.isEmpty()) {
-				winners.put(prize, soldTickets.draw());
+				winners.put(prizeIt.next(), soldTickets.draw());
 			}
 		}
 		

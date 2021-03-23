@@ -16,6 +16,7 @@ public class Ticket {
 	
 	private int num;
 	private String buyer;
+	private final double price;
 	
 	/**
 	 * Constructor: 
@@ -24,10 +25,11 @@ public class Ticket {
 	 * 
 	 * Each Ticket keeps track of its buyer.
 	 */
-	public Ticket(String name) {
+	public Ticket(String name, double price) {
 		previous++;
 		num = previous;
 		buyer = name;
+		this.price = price;
 	}
 	
 	/**
