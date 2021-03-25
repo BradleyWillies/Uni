@@ -109,20 +109,18 @@ public class TextUI {
 	 */
 	public int[] readNumbers(int expected) {
 		// allocate array
-		int[] numbers = new int[expected];
+		int[] resultNumbers = new int[expected];
 		// read a line
 		String line = readLine();
 		if (line == null) { return null; }
 		// create a Scanner on the line
 		Scanner scanner = new Scanner(line);
 		// initialize array with hasNextInt() / nextInt()
-		int index = 0;
-		while (scanner.hasNextInt()) {
-			numbers[index] = scanner.nextInt();
-			index++;
+		for (int i = 0 ; scanner.hasNextInt() && i < expected ; i++) {
+			resultNumbers[i] = scanner.nextInt();
 		}
 		// return array
 		scanner.close();
-		return numbers;
+		return resultNumbers;
 	}
 }

@@ -13,6 +13,9 @@ public class Board {
 	 * Number of rows and columns for the Tic-Tac-Toe board.
 	 */
 	public static final int SIZE = 3;
+	
+	// board representation
+	private Player[][] board = new Player[SIZE][SIZE];
 
 
 	/**
@@ -25,7 +28,7 @@ public class Board {
 	 *         {@link Player} is occupying it.
 	 */
 	public Player getCell(int column, int row) {
-		// TODO
+		return board[column][row];
 	}
 
 	/**
@@ -50,11 +53,39 @@ public class Board {
 	 * @return {@link Player} that won the game, or {@code null} if nobody won yet.
 	 */
 	public Player getWinner() {
+		Player winner = null;
 		// if winner by columns, return that
+		winner = getWinnerInColumns();
 		// if winner by rows, return that
+		if (winner == null) {
+			winner = getWinnerInRows();
+		}
 		// if winner by major diagonal, return that
+		if (winner == null) {
+			winner = getWinnerInMajorDiagonal();
+		}
 		// if winner by minor diagonal, return that
+		if (winner == null) {
+			winner = getWinnerInMinorDiagonal();
+		}
 		// no winner
+		return winner;
+	}
+	
+	public Player getWinnerInColumns() {		
+		for (int iColumn = 0 ; iColumn < SIZE ; iColumn++) {
+			Player player = getCell(iColumn, 0);				// check player at iColumn and first row
+			if (player != null) {
+				boolean hasWon = true;
+				for (int iRow = 1 ; iRow < SIZE ; iRow++) {		// check the players in the rest of the rows skipping the first row
+					if (getCell(iColumn, iRow) != player) {
+						hasWon = false;
+					}
+				}
+				if (hasWon) return player;
+			}
+		}
+		return null;
 	}
 
 	/**
