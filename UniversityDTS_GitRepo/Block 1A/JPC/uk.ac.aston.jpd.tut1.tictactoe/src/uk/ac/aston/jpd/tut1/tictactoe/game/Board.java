@@ -43,7 +43,12 @@ public class Board {
 	 *         if the cell was already occupied.
 	 */
 	public boolean occupyCell(int column, int row, Player player) {
-		// TODO
+		if(board[column][row] == null) {
+			board[column][row] = player;
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
@@ -72,7 +77,7 @@ public class Board {
 		return winner;
 	}
 	
-	public Player getWinnerInColumns() {		
+	private Player getWinnerInColumns() {		
 		for (int iColumn = 0 ; iColumn < SIZE ; iColumn++) {
 			Player player = getCell(iColumn, 0);				// check player at iColumn and first row
 			if (player != null) {
@@ -86,6 +91,45 @@ public class Board {
 			}
 		}
 		return null;
+	}
+	
+	private Player getWinnerInRows() {
+		for (int iRow = 0 ; iRow < SIZE ; iRow++) {
+			Player player = getCell(0, iRow);							// check player at first column and iRow
+			if (player != null) {
+				boolean hasWon = true;
+				for (int iColumn = 1 ; iColumn < SIZE ; iColumn++) {	// check the players in the rest of the columns skipping the first column
+					if (getCell(iColumn, iRow) != player) {
+						hasWon = false;
+					}
+				}
+				if (hasWon) return player;
+			}
+		}
+		return null;
+	}
+	
+	private Player getWinnerInMajorDiagonal() {
+		Player firstCellPlayer = getCell(0, 0);									// get player at top left
+		for (int i = 1 ; i < SIZE ; i++) {										
+			Player currCellPlayer = getCell(i, i);								// get the cell at the next diagonal down and right (1,1) then (2,2) etc..
+			if (currCellPlayer == null || currCellPlayer != firstCellPlayer) {
+				return null;
+			}
+		}
+		return firstCellPlayer;
+	}
+	
+	private Player getWinnerInMinorDiagonal() {
+		int iColumn = SIZE-1;
+		Player firstCellPlayer = getCell(iColumn, 0);							// get player at top right
+		for (int i = 1 ; i < SIZE ; i++) {
+			Player currCellPlayer = getCell(iColumn-i, i);						// get the cell at the next diagonal down and left (2,0) then (1,1) then (0,2) etc..
+			if (currCellPlayer == null || currCellPlayer != firstCellPlayer) {
+				return null;
+			}
+		}
+		return firstCellPlayer;
 	}
 
 	/**
@@ -113,6 +157,17 @@ public class Board {
 		//   append line separator
 		// }
 		
+		for (int iRow = 0 ; iRow < SIZE ; iRow++) {
+			for (int iColumn = 0 ; iColumn < SIZE ; iColumn++) {
+				Player cell = getCell(iRow, iColumn);
+				if (cell == null) {
+					sb.append(".");
+				} else {
+					sb.append(cell.getName().charAt(0));
+				}
+			}
+			sb.append("\n");
+		}
 		return sb.toString();
 	}
 
