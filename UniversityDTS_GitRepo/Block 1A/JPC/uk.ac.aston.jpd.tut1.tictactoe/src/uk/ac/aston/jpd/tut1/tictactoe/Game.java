@@ -40,7 +40,7 @@ public class Game {
 					addedToCell = true;
 					ui.writeMessage("That cell was free, it is now occupied by " + p.getName());
 				} else {
-					ui.prompt("That cell was not free, please provide a different column and row");
+					ui.prompt("That cell was not free, please provide a different row and column");
 				}
 			}
 			Player winner = board.getWinner();	
@@ -86,6 +86,7 @@ public class Game {
 		}
 		
 		// report winner
+		ui.writeMessage(game.board.toString());
 		if (game.isDraw()) {
 			ui.writeMessage("GAME OVER --- DRAW");
 		} else {
