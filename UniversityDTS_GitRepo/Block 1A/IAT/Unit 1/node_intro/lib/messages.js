@@ -22,19 +22,19 @@ module.exports = function(url,callback){
       Message.findById(id, callback);
     },
     readUsername:function(username,callback){
-      callback();
+      Message.find({username: username}, callback)
     },
     readAll:function(callback){
-      callback();
+      Message.find({}, callback);
     },
     update:function(id,updatedMessage,callback){
-      callback();
+      Message.findByIdAndUpdate(id, updatedMessage, callback);
     },
     delete:function(id,callback){
-      callback();
+      Message.findByIdAndRemove(id, callback);
     },
     deleteAll:function(callback){
-      Message.deleteMany({},callback);
+      Message.deleteMany({}, callback);
     },
     disconnect:function(){
       mongoose.disconnect();
