@@ -6,16 +6,27 @@ module.exports = function(url,callback){
   mongoose.set('useUnifiedTopology', true);
   mongoose.set('useFindAndModify', false);
   mongoose.connect(url,callback);
-  mongoose.connect('mongodb://localhost:27017/test');
+
+  const credentialsSchema = new mongoose.Schema(
+      {
+            username: { type: String, required: true },
+            text: { type: String, required: true }
+      },
+      {strict: 'throw'}
+  );
 
   const Message = mongoose.model(
     'messages',
-    { username: String, text: String }
+    credentialsSchema
   );
 
   return {
     create:function(newMessage,callback){
-        var message = new Message(newMessage);
+        try {
+            var message = new Message(newMessage);
+        } catch (e) {
+            callback(e);
+        }
         message.save(callback);
     },
     read:function(id,callback){

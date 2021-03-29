@@ -1,3 +1,3 @@
-In cmd, cd to the proejct folder which includes a mongodata folder, then run:
+In cmd, cd to the project folder which includes a mongodata folder, then run:
 
 "C:\Program Files\MongoDB\Server\4.4\bin\mongod.exe" --dbpath="mongodata"
