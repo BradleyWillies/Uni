@@ -22,12 +22,12 @@ public class Speakers {
 	
 	private static final String[] messages = 
 		{
-				"Hello", 
-				"Hello friends",
-				"Hello friends Hello",
-				"I like playing badminton",
-				"I played badminton on Saturdays",
-				"I often participate in badminton tournaments"
+				"badminton", 
+				"badminton badmi",
+				"badminton badminton badmi",
+				"badmi badminton badmi badminton",
+				"badmi badmi badmi badminton badminton",
+				"badminton badminton badminton badminton badminton badmi"
 		};
 	
 	/**
@@ -145,10 +145,10 @@ public class Speakers {
      */
     public static void main(String[] args) {
     	for (int i = 0; i < messages.length; i++) {
-    		Speakers.capitaliseAll(Speakers.messages[i]);
+//    		Speakers.capitaliseAll(Speakers.messages[i]);
 //    		Speakers.shoutLongWords(Speakers.messages[i]);
 //    		Speakers.exclamationMarkOnRepeat(Speakers.messages[i]);
-//    		Speakers.exclamationMarkOnRepeatUsingSet(Speakers.messages[i]);
+    		Speakers.exclamationMarkOnRepeatUsingSet(Speakers.messages[i]);
     	}
     }
 }

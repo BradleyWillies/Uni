@@ -10,7 +10,7 @@ package seminars;
 /* !!!! Modify the class declaration to define the
  * 		realisation relationship between classes Dog and Speaker.  
  */
-public class Dog {
+public class Dog implements Speaker {
 
 	// the name of this dog object
 	private String name;
@@ -53,16 +53,19 @@ public class Dog {
 		 * 
 		 * A dog can speak like a human being(!). However, every now and then 
 		 * the old speaking habits creep into its speech. Thus after a dog has 
-		 * uttered five words, it will automatically utter a “Woof!”. 
-		 * Hence, if a dog wants to say “My name is Super Dog. Thank you for 
-		 * listening to me.”, you will hear “My name is Super Dog. Woof! 
-		 * Thank you for listening to Woof! me.”.
+		 * uttered five words, it will automatically utter a Woof!. 
+		 * Hence, if a dog wants to say My name is Super Dog. Thank you for 
+		 * listening to me., you will hear My name is Super Dog. Woof! 
+		 * Thank you for listening to Woof! me..
 		 * 
 		 * You will need to insert "Woof!" after every five words in the dog's
 		 * speech.
 		 */	
 		
-		
+		for (int i = 0 ; i < text.length ; i++) {
+			mySpeech += text[i] + " ";
+			if ((i + 1) % 5 == 0) mySpeech += "Woof! ";
+		}
 		
 		return mySpeech;
 	}

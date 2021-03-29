@@ -37,11 +37,18 @@ public class Conference {
 				 * track down the problem of bad data format. Don't 
 				 * forget to throw the required exception.
 				 */
+				if (attributes.length != 4) throw new BadDataFormatException("Incorrect number of attributes for record: \"" + record + "\"");
 				
+				int speakerType;
+				if (attributes[3].equals("0")) {
+					speakerType = 0;
+				} else if (attributes[3].equals("1")) {
+					speakerType = 1;
+				} else {
+					throw new BadDataFormatException("Speaker type must be either 0 or 1, not: \"" + attributes[3] + "\"");
+				}
 				
-				
-				
-				
+				talks.add(new Seminar(attributes[0], attributes[1], attributes[2], speakerType));
 			}
 		}
 	}

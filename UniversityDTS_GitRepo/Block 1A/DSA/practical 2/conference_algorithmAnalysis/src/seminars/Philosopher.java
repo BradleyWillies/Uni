@@ -12,7 +12,7 @@ import java.util.*;
 /* !!!! Modify the class declaration to define the
  * 		realisation relationship between classes Philosopher and Speaker.  
  */
-public class Philosopher  {
+public class Philosopher implements Speaker {
 	// the name of the philosopher
 	private String name;
 	
@@ -43,15 +43,30 @@ public class Philosopher  {
 	 * You might like to add the missing method here.
 	 * 
 	 * Philosophers like to clear their throats when they make a speech. 
-	 * Every time they clear their throats, an “Ah-Hem!” is uttered. 
-	 * Hence, when a philosopher delivers a speech, “Ah-Hem!” is scattered 
+	 * Every time they clear their throats, an Ah-Hem! is uttered. 
+	 * Hence, when a philosopher delivers a speech, Ah-Hem! is scattered 
 	 * throughout the speech in a random manner. For example, if a 
-	 * philosopher wants to say “Today is a sunny day. We are going to look 
-	 * at how the global climate affects our lives.”, you may hear 
-	 * “Today Ah-Hem! is a sunny day. We Ah-Hem! are going to look at how 
-	 * the global climate Ah-Hem! affects our lives.”.
+	 * philosopher wants to say Today is a sunny day. We are going to look 
+	 * at how the global climate affects our lives., you may hear 
+	 * Today Ah-Hem! is a sunny day. We Ah-Hem! are going to look at how 
+	 * the global climate Ah-Hem! affects our lives..
 	 */
-
+	public String speak(String speech) {
+		String[] text = speech.split(" ");
+		String mySpeech = "";
+		Random randNumGenerator = new Random();
+		int randNum = randNumGenerator.nextInt(text.length);
+		
+		for (int i = 0 ; i < text.length ; i++) {
+			mySpeech += text[i] + " ";
+			if (i + 1 == randNum) {
+				mySpeech += "Ah-Hem! ";
+				randNum = randNumGenerator.nextInt(text.length);
+			}
+		}
+		
+		return mySpeech;
+	}
 	
 
 	/**
