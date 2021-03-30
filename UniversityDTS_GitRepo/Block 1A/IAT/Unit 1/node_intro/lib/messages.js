@@ -22,10 +22,16 @@ module.exports = function(url,callback){
   return {
     create:function(newMessage,callback){
         try {
-            // var username = sanitizeHTML(newMessage.username);
-            // var text = sanitizeHTML(newMessage.text);
-            // var sanitizedMessage = {username:username, text:text};
-            // var message = new Message(sanitizedMessage);
+            if ('username' in newMessage) {
+                if (typeof newMessage.username === 'string') {
+                    newMessage.username = sanitizeHTML(newMessage.username);
+                }
+            }
+            if ('text' in newMessage) {
+                if (typeof newMessage.text === 'string') {
+                    newMessage.text = sanitizeHTML(newMessage.text);
+                }
+            }
             var message = new Message(newMessage);
             message.save(callback);
         } catch (e) {
@@ -36,7 +42,12 @@ module.exports = function(url,callback){
       Message.findById(id, callback);
     },
     readUsername:function(username,callback){
-      Message.find({username: username}, callback)
+        if (typeof username === 'string') {
+            Message.find({username: username}, callback)
+        } else {
+            var e = new Error('Username must be of type String');
+            callback(e);
+        }
     },
     readAll:function(callback){
       Message.find({}, callback);
