@@ -22,16 +22,11 @@ module.exports = function(url,callback){
   return {
     create:function(newMessage,callback){
         try {
-            if ('username' in newMessage) {
-                if (typeof newMessage.username === 'string') {
+            if ('username' in newMessage && typeof newMessage.username === 'string'
+                && 'text' in newMessage && typeof newMessage.text === 'string') {
                     newMessage.username = sanitizeHTML(newMessage.username);
-                }
-            }
-            if ('text' in newMessage) {
-                if (typeof newMessage.text === 'string') {
                     newMessage.text = sanitizeHTML(newMessage.text);
                 }
-            }
             var message = new Message(newMessage);
             message.save(callback);
         } catch (e) {
