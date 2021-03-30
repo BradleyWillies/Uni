@@ -1,7 +1,6 @@
-const sanitizeHTML = require('sanitize-html');
-
 module.exports = function(url,callback){
   const mongoose = require('mongoose');
+  const sanitizeHTML = require('sanitize-html');
   mongoose.set('useNewUrlParser', true);
   mongoose.set('useUnifiedTopology', true);
   mongoose.set('useFindAndModify', false);
@@ -23,11 +22,15 @@ module.exports = function(url,callback){
   return {
     create:function(newMessage,callback){
         try {
+            // var username = sanitizeHTML(newMessage.username);
+            // var text = sanitizeHTML(newMessage.text);
+            // var sanitizedMessage = {username:username, text:text};
+            // var message = new Message(sanitizedMessage);
             var message = new Message(newMessage);
+            message.save(callback);
         } catch (e) {
             callback(e);
         }
-        message.save(callback);
     },
     read:function(id,callback){
       Message.findById(id, callback);
