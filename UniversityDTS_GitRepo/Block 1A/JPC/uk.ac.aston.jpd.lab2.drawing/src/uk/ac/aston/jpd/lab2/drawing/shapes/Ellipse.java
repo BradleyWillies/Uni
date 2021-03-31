@@ -5,25 +5,15 @@ import javafx.scene.canvas.GraphicsContext;
 /**
  * Ellipse, specified as upper left corner + width and height. 
  */
-public class Ellipse {
-
-	private double upperLeftX, upperLeftY;
-	private double width, height;
+public class Ellipse extends Shape {
 
 	public Ellipse(double upperLeftX, double upperLeftY, double width, double height) {
-		this.upperLeftX = upperLeftX;
-		this.upperLeftY = upperLeftY;
-		this.width = width;
-		this.height = height;
+		super(upperLeftX, upperLeftY, width, height);
 	}
 
-	public double getX() { return upperLeftX; }
-	public double getY() { return upperLeftY; }
-	public double getWidth()  { return width; }
-	public double getHeight() { return height; }
-
+	@Override
 	public void draw(GraphicsContext gc) {
-		gc.strokeOval(upperLeftX, upperLeftY, width, height);
+		gc.strokeOval(getUlX(), getUlY(), getWidth(), getHeight());
 	}
 	
 }
