@@ -13,6 +13,7 @@ public class Rectangle extends Shape {
 
 	@Override
 	public void draw(GraphicsContext gc) {
+		gc.setLineWidth(5);
 		gc.strokeRect(getUlX(), getUlY(), getWidth(), getHeight());
 	}
 

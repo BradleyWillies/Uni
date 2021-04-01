@@ -7,11 +7,16 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import uk.ac.aston.jpd.lab2.drawing.shapes.Circle;
+import uk.ac.aston.jpd.lab2.drawing.shapes.Donut;
 import uk.ac.aston.jpd.lab2.drawing.shapes.Ellipse;
+import uk.ac.aston.jpd.lab2.drawing.shapes.FilledRectangle;
+import uk.ac.aston.jpd.lab2.drawing.shapes.Frame;
 import uk.ac.aston.jpd.lab2.drawing.shapes.Rectangle;
+import uk.ac.aston.jpd.lab2.drawing.shapes.Triangle;
 
 /**
  * Main class for the Shapes lab.
@@ -53,14 +58,23 @@ public class Launcher extends Application {
 	private void draw() {
 		graphics.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-		Rectangle r = new Rectangle(10 * iFrame, 10 * iFrame, 50, 50);
+		Rectangle r = new FilledRectangle(Color.AQUA, 10 * iFrame, 10 * iFrame, 50, 50);
 		r.draw(graphics);
 
 		Circle c = new Circle(200, 300 - iFrame*5, 100);
 		c.draw(graphics);
 
-		Ellipse e = new Ellipse(150, 300, 90 + iFrame, 160);
+		Ellipse e = new Ellipse(50, 300, 90 + iFrame, 160);
 		e.draw(graphics);
+		
+		Triangle t = new Triangle(350, 50, 100, 100);
+		t.draw(graphics);
+		
+		Donut d = new Donut(300, 300, 100);
+		d.draw(graphics);
+		
+		Frame f = new Frame(10, 10, 480, 480, 20);
+		f.draw(graphics);
 
 		iFrame = (iFrame + 1) % 30; 
 	}
