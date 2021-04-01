@@ -13,4 +13,7 @@ public class Circle extends Ellipse {
 		return getWidth() / 2; 
 	}
 	
+	public Shape move(double dx, double dy) {
+		return new Circle(getUlX() + dx, getUlY() + dy, getWidth());
+	}
 }

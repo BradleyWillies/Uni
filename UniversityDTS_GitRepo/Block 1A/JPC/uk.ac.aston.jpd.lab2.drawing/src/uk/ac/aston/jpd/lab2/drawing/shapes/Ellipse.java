@@ -16,4 +16,8 @@ public class Ellipse extends Shape {
 		gc.strokeOval(getUlX(), getUlY(), getWidth(), getHeight());
 	}
 	
+	@Override
+	public Shape move(double dx, double dy) {
+		return new Ellipse(getUlX() + dx, getUlY() + dy, getWidth(), getHeight());
+	}
 }

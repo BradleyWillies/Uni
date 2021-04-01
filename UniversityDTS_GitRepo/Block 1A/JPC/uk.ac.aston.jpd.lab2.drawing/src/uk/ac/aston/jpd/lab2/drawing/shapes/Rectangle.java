@@ -17,4 +17,8 @@ public class Rectangle extends Shape {
 		gc.strokeRect(getUlX(), getUlY(), getWidth(), getHeight());
 	}
 
+	@Override
+	public Shape move(double dx, double dy) {
+		return new Rectangle(getUlX() + dx, getUlY() + dy, getWidth(), getHeight());
+	}
 }

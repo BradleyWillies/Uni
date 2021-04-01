@@ -17,4 +17,13 @@ public class FilledRectangle extends Rectangle {
 		gc.fillRect(getUlX(), getUlY(), getWidth(), getHeight());
 		super.draw(gc);
 	}
+	
+	public Color getFill() {
+		return fill;
+	}
+	
+	@Override
+	public Shape move(double dx, double dy) {
+		return new FilledRectangle(getFill(), getUlX() + dx, getUlY() + dy, getWidth(), getHeight());
+	}
 }

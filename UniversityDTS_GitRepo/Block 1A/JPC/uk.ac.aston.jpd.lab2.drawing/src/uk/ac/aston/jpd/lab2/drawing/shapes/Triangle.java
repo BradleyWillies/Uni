@@ -16,4 +16,9 @@ public class Triangle extends Shape {
 		gc.lineTo(getUlX(), getUlY());
 		gc.stroke();
 	}
+	
+	@Override
+	public Shape move(double dx, double dy) {
+		return new Triangle(getUlX() + dx, getUlY() + dy, getWidth(), getHeight());
+	}
 }

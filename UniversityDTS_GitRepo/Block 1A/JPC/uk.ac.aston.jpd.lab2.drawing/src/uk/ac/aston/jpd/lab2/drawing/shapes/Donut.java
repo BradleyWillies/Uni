@@ -13,4 +13,9 @@ public class Donut extends Circle {
 		super.draw(gc);
 		gc.strokeOval(getUlX() + getRadius() / 2, getUlY() + getRadius() / 2, getRadius(), getRadius());
 	}
+	
+	@Override
+	public Shape move(double dx, double dy) {
+		return new Donut(getUlX() + dx, getUlY() + dy, getWidth() / 2);
+	}
 }

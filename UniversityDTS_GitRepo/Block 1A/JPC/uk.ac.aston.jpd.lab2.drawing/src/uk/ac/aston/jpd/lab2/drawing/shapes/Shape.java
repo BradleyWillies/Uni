@@ -32,4 +32,8 @@ public class Shape {
 	public void draw(GraphicsContext gc) {
 		System.out.println("You forgot to write the draw method in " + getClass().getName());
 	}
+	
+	public Shape move(double dx, double dy) {
+		return new Shape(getUlX() + dx, getUlY() + dy, getWidth(), getHeight());
+	}
 }
