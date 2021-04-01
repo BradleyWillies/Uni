@@ -94,6 +94,11 @@ public class Launcher extends Application {
 				rnd.nextFloat() * 10 - 5, 
 				rnd.nextFloat() * 10 - 5
 			);
+			shapes[iShape] = scale(
+				shapes[iShape],
+				rnd.nextDouble(),
+				rnd.nextDouble()
+			);
 			shapes[iShape].draw(graphics);
 		}
 
@@ -125,6 +130,20 @@ public class Launcher extends Application {
 		if (shape instanceof Circle) {
 			Circle c = (Circle) shape;
 			return new Circle(shape.getUlX(), shape.getUlY(), c.getRadius() + dw);
+		} else if (shape instanceof Ellipse) {
+			return new Ellipse(shape.getUlX(), shape.getUlY(), shape.getWidth() + dw, shape.getHeight() + dh);
+		} else if (shape instanceof FilledRectangle) {
+			FilledRectangle fr = (FilledRectangle) shape;
+			return new FilledRectangle(fr.getFill(), fr.getUlX(), fr.getUlY(), fr.getWidth() + dw, fr.getHeight() + dh);
+		} else if (shape instanceof Rectangle) {
+			return new Rectangle(shape.getUlX(), shape.getUlY(), shape.getWidth() + dw, shape.getHeight() + dh);
+		} else if (shape instanceof Frame) {
+			Frame fr = (Frame) shape;
+			return new Frame(shape.getUlX(), shape.getUlY(), shape.getWidth() + dw, shape.getHeight() + dh, fr.getFrameWidth());
+		} else if (shape instanceof Triangle) {
+			return new Triangle(shape.getUlX(), shape.getUlY(), shape.getWidth() + dw, shape.getHeight() + dh);
+		} else {
+			return new Shape(shape.getUlX(), shape.getUlY(), shape.getWidth() + dw, shape.getHeight() + dh);
 		}
 	}
 
