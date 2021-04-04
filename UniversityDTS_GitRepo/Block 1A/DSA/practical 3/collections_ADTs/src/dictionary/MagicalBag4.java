@@ -33,7 +33,7 @@ public class MagicalBag4<T> implements MagicalBag<T> {
 		/* !!!! Initialise the instance variable with an appropriate object from JCF.
 		 * 		Don't forget to set the initial capacity of the object.
 		 */		
-		
+		contents = new HashSet<T>(WordPicker.MAX_BAG_CAPACITY);
 	}
 	
 	/*
@@ -98,7 +98,7 @@ public class MagicalBag4<T> implements MagicalBag<T> {
 		T item = null;
 		
 		/* Picks the item randomly */
-		int index = randomiser.nextInt(size());
+//		int index = randomiser.nextInt(size());
 	
 		/* !!!!
 		 *  The implementation of HashSet within JCF doesn't have 
@@ -110,9 +110,9 @@ public class MagicalBag4<T> implements MagicalBag<T> {
 		 * the generated random number to remove, we remove that
 		 * object from the HashSet using its object reference. 
 		 */		
-		
-		
-		return item;
+		item = pick();
+		contents.remove(item);
+		return item;	
 	}
 	
 	/*

@@ -33,7 +33,7 @@ public class MagicalBag3<T> implements MagicalBag<T> {
 		/* !!!! Initialise the instance variable 
 		 * 		with an appropriate object from JCF.
 		 */
-		
+		contents = new LinkedList<T>();
 	}
 	
 	/*
@@ -75,9 +75,7 @@ public class MagicalBag3<T> implements MagicalBag<T> {
 			 * As a MagicalBag3 object is implemented using a LinkedList object,
 			 * you may simply invoke a suitable remove method to do the task.
 			 */
-			
-			
-			
+			return contents.remove(randomiser.nextInt(size()));
 		}
 	}
 	

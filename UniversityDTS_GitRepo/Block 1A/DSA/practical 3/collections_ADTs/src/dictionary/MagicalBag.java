@@ -17,7 +17,7 @@ package dictionary;
  * 1. A MagicalBag object is expected to be used in the context of an enhanced for loop.
  * 2. A MagicalBag is expected to keep a generic type of objects.
  */
-public interface MagicalBag {
+public interface MagicalBag<T> extends Iterable<T> {
 
 	/** Adds an item to the bag.
 	 * 
