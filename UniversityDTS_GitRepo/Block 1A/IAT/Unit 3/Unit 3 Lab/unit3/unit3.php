@@ -27,9 +27,15 @@
 	<!-- write your solution to Task 2 here -->
 	<div class="section">
 		<h2>Task 2 : Array and image</h2>
-
-
-
+        <?php
+            $picArray = array("earth.jpg", "flower.jpg", "plane.jpg", "tiger.jpg");
+            $rand = rand()%sizeof($picArray);
+         ?>
+         <img
+            src="images/<?= $picArray[$rand]; ?>"
+            alt="<?= rtrim($picArray[$rand], ".jpg") ?>"
+            width="20%"
+         >
 	</div>
 
 	<!-- Task 3: Function definition dayinmonth  -->
