@@ -106,8 +106,7 @@
 	<!-- write your solution to Task 5 here -->
 	<div class="section">
 		<h2>Task 5: including external files</h2>
-
-
+        <?php include("footer.php"); ?>
 	</div>
 
 </body>
