@@ -94,9 +94,17 @@
 	<!-- write your solution to Task 6 optional here -->
 	<div class="section">
 		<h2>Task 6 optional: Directory operations optional</h2>
-
-
-
+        <?php
+            $docRoot = $_SERVER["DOCUMENT_ROOT"];
+            $rootFilesDirs = scandir($docRoot);
+        ?>
+        <ol>
+            <?php foreach ($rootFilesDirs as $fileDirName) {
+                    if(is_file($docRoot . "/" . $fileDirName)) {
+                        print("<li>" . $fileDirName . "</li>");
+                    }
+            } ?>
+        </ol>
 	</div>
 	</div
 
