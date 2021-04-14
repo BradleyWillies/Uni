@@ -42,9 +42,27 @@
 	<!-- write your solution to Task 3 here -->
 	<div class="section">
 		<h2>Task 3 : Function definition</h2>
-
-
-
+        <?php
+            function daysInMonth ($monthNum) {
+                $monthsWith30 = array(4, 6, 9, 11);
+                $monthsWith31 = array(1, 3, 5, 7, 8, 10, 12);
+                switch ($monthNum) {
+                    case 2 :
+                        return 28;
+                    case in_array($monthNum, $monthsWith30) :
+                        return 30;
+                    case in_array($monthNum, $monthsWith31) :
+                        return 31;
+                    default :
+                        return 0;
+                }
+            }
+         ?>
+         <ul>
+             <?php for ($i = 1 ; $i <= 12 ; $i++) { ?>
+                    <li>Month <?= $i ?> => <?= daysInMonth($i); ?> days.</li>
+             <?php } ?>
+         </ul>
 	</div>
 
 
