@@ -71,9 +71,14 @@
 	<!-- write your solution to Task 4 here -->
 	<div class="section">
 		<h2>Task 4: My Favorite Artists from a file</h2>
-
-
-
+        <?php
+            $artists = file('favorite.txt', FILE_IGNORE_NEW_LINES);
+        ?>
+        <ol>
+            <?php foreach ($artists as $artist) { ?>
+                <li><a href="http://www.mtv.com/artists/<?= str_replace(" ", "-", strtolower($artist)); ?>/"><?= $artist ?></a></li>
+            <?php } ?>
+        </ol>
 	</div>
 
 	<!-- Task 6: Directory operations -->
