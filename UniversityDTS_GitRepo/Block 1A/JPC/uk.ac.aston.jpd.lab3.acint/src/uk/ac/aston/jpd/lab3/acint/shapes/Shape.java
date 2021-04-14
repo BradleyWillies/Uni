@@ -1,8 +1,6 @@
 package uk.ac.aston.jpd.lab3.acint.shapes;
 
-import javafx.scene.canvas.GraphicsContext;
-
-public class Shape {
+public abstract class Shape implements Drawable {
 
 	private final double upperLeftX, upperLeftY;
 	private final double width, height;
@@ -18,8 +16,4 @@ public class Shape {
 	public double getY() { return upperLeftY; }
 	public double getWidth()  { return width;  }
 	public double getHeight() { return height; }
-
-	public void draw(GraphicsContext gc) {
-		System.out.println("You forgot to write the draw method in " + getClass().getName());
-	}
 }

@@ -10,9 +10,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import uk.ac.aston.jpd.lab3.acint.shapes.Circle;
+import uk.ac.aston.jpd.lab3.acint.shapes.Drawable;
 import uk.ac.aston.jpd.lab3.acint.shapes.Ellipse;
+import uk.ac.aston.jpd.lab3.acint.shapes.MyPolygon;
 import uk.ac.aston.jpd.lab3.acint.shapes.Rectangle;
-import uk.ac.aston.jpd.lab3.acint.shapes.Shape;
 
 /**
  * Main class for the Shapes lab.
@@ -25,7 +26,7 @@ public class Launcher extends Application {
 	private GraphicsContext graphics;
 
 	private int iFrame = 0;
-	private Shape[] shapes;
+	private Drawable[] drawables;
 
 	/**
 	 * Starts the application, which has only an empty canvas where we can draw
@@ -43,10 +44,16 @@ public class Launcher extends Application {
 		stage.setScene(new Scene(root));
 		stage.show();
 
-		shapes = new Shape[] {
+		MyPolygon triangle = new MyPolygon();
+		triangle.addPoint(400, 300);
+		triangle.addPoint(300, 200);
+		triangle.addPoint(400, 400);
+		
+		drawables = new Drawable[] {
 			new Circle(300, 200, 100),
 			new Ellipse(100, 300, 150, 160),
-			new Rectangle(40, 40, 300, 100)
+			new Rectangle(40, 40, 300, 100),
+			triangle
 		};
 
 		// Asks drawScene() to be run 30 times per second, Processing-style
@@ -63,8 +70,8 @@ public class Launcher extends Application {
 	private void draw() {
 		graphics.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-		for (int i = 0; i < shapes.length; i++) {
-			shapes[i].draw(graphics);
+		for (int i = 0; i < drawables.length; i++) {
+			drawables[i].draw(graphics);
 		}
 
 		iFrame = (iFrame + 1) % (FPS + 1); 
