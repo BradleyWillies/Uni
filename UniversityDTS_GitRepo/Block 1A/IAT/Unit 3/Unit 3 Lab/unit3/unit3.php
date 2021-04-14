@@ -11,9 +11,16 @@
 	<!-- write your solution to Task 1 here -->
 	<div class="section">
 		<h2>Task 1 : String</h2>
-		
-	
-	
+		<?php
+            $stringVar = "I love programming";
+         ?>
+         <ul>
+                <li>First letter is: <?= substr($stringVar, 0, 1); ?></li>
+                <li>Length of string is: <?= strlen($stringVar); ?></li>
+                <li>Last letter is: <?= substr($stringVar, strlen($stringVar) - 1, 1); ?></li>
+                <li>First 6 letters are: <?= substr($stringVar, 0, 6); ?></li>
+                <li>In capital: <?= strtoupper($stringVar); ?></li>
+         </ul>
 	</div>
 
 	<!-- Task 2: Array and image-->
@@ -21,57 +28,57 @@
 	<div class="section">
 		<h2>Task 2 : Array and image</h2>
 
-		
-		
-	</div>	
+
+
+	</div>
 
 	<!-- Task 3: Function definition dayinmonth  -->
 	<!-- write your solution to Task 3 here -->
 	<div class="section">
 		<h2>Task 3 : Function definition</h2>
-		
-	
-	
-	</div>
-	
 
-	
+
+
+	</div>
+
+
+
 	<!-- Task 4: Favorite Artists from a File (Files) -->
 	<!-- write your solution to Task 4 here -->
 	<div class="section">
 		<h2>Task 4: My Favorite Artists from a file</h2>
-		
 
-		
+
+
 	</div>
-	
+
 	<!-- Task 6: Directory operations -->
 	<!-- write your solution to Task 6 here -->
 	<div class="section">
 		<h2>Task 6 : Directory operations</h2>
 
 
-		
+
 	</div>
 
 	<!-- Task 6 optional: Directory operations -->
 	<!-- write your solution to Task 6 optional here -->
 	<div class="section">
 		<h2>Task 6 optional: Directory operations optional</h2>
-	
-	
-	
+
+
+
 	</div>
 	</div
 
 
-	
+
     <!-- Task 5: including external files -->
 	<!-- write your solution to Task 5 here -->
 	<div class="section">
 		<h2>Task 5: including external files</h2>
-			
-			
+
+
 	</div>
 
 </body>
