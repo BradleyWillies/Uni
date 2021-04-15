@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 /**
  * Ellipse, specified as upper left corner + width and height. 
  */
-public class Ellipse extends Shape {
+public class Ellipse extends Shape implements MovableDrawable {
 
 	public Ellipse(double upperLeftX, double upperLeftY, double width, double height) {
 		super(upperLeftX, upperLeftY, width, height);
@@ -16,4 +16,8 @@ public class Ellipse extends Shape {
 		gc.strokeOval(getX(), getY(), getWidth(), getHeight());
 	}
 
+    @Override
+    public Ellipse move(int dx, int dy) {
+    	return new Ellipse(getX() + dx, getY() + dy, getWidth(), getHeight());
+    }
 }

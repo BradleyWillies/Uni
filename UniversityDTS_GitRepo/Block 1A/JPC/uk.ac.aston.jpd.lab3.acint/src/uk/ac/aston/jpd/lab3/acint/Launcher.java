@@ -12,6 +12,7 @@ import javafx.util.Duration;
 import uk.ac.aston.jpd.lab3.acint.shapes.Circle;
 import uk.ac.aston.jpd.lab3.acint.shapes.Drawable;
 import uk.ac.aston.jpd.lab3.acint.shapes.Ellipse;
+import uk.ac.aston.jpd.lab3.acint.shapes.MovableDrawable;
 import uk.ac.aston.jpd.lab3.acint.shapes.MyPolygon;
 import uk.ac.aston.jpd.lab3.acint.shapes.Rectangle;
 
@@ -21,6 +22,7 @@ import uk.ac.aston.jpd.lab3.acint.shapes.Rectangle;
 public class Launcher extends Application {
 
 	private static final int FPS = 30;
+	private static final int MAX_SPEED = 20;
 
 	private Canvas canvas;
 	private GraphicsContext graphics;
@@ -51,7 +53,7 @@ public class Launcher extends Application {
 		
 		drawables = new Drawable[] {
 			new Circle(300, 200, 100),
-			new Ellipse(100, 300, 150, 160),
+			new Ellipse(100, 300, 150, 200),
 			new Rectangle(40, 40, 300, 100),
 			triangle
 		};
@@ -72,6 +74,11 @@ public class Launcher extends Application {
 
 		for (int i = 0; i < drawables.length; i++) {
 			drawables[i].draw(graphics);
+			if (drawables[i] instanceof MovableDrawable) {
+				MovableDrawable m = (MovableDrawable) drawables[i];
+				final double d = MAX_SPEED * 2 * ((double)iFrame/FPS - 0.5);
+				drawables[i] = m.move((int) d, (int) d);
+			}
 		}
 
 		iFrame = (iFrame + 1) % (FPS + 1); 
