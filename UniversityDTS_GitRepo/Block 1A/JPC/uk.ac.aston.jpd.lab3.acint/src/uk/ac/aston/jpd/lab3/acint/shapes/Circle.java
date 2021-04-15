@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 /**
  * Circle, specified as center + radius. 
  */
-public class Circle implements Drawable {
+public class Circle implements MovableDrawable {
 	
 	private final double centerX, centerY, radius;
 
@@ -29,5 +29,10 @@ public class Circle implements Drawable {
 
     public void draw(GraphicsContext gc) {
     	gc.strokeOval(getCenterX() - getRadius(), getCenterY() - getRadius(), getRadius() * 2, getRadius() * 2);
+    }
+    
+    @Override
+    public Circle move(int dx, int dy) {
+    	return new Circle(getCenterX() + dx, getCenterY() + dy, getRadius());
     }
 }

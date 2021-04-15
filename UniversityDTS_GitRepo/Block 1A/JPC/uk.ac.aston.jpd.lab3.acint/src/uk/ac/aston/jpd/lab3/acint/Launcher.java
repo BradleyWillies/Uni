@@ -77,7 +77,7 @@ public class Launcher extends Application {
 			if (drawables[i] instanceof MovableDrawable) {
 				MovableDrawable m = (MovableDrawable) drawables[i];
 				final double d = MAX_SPEED * 2 * ((double)iFrame/FPS - 0.5);
-				drawables[i] = m.move((int) d, (int) d);
+				drawables[i] = m.moveY((int) d);
 			}
 		}
 
