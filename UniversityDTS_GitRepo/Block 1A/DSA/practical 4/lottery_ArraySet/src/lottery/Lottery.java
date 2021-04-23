@@ -53,7 +53,9 @@ public class Lottery {
 		/* !!!! Write an assignment statement here for initialising availableNumbers.
 		 */
 		// create the required numbers for this lottery
-		
+		for (int i = 1 ; i < largest ; i++) {
+			availableNumbers.add(i);
+		}
 		
 		// prepare this lottery for running the next session
 		reset();
@@ -73,10 +75,10 @@ public class Lottery {
 		 * 		the instance variables: tickets and winningNumbers.
 		 */
 		// the current set of lottery tickets should be empty
-		
+		tickets = new ArraySet<LotteryTicket>();
 		
 		// reset the existing winning numbers
-		
+		winningNumbers = new ArraySet<Integer>(maxPick);
 		
 		numOfTicketsSold = 0;
 	}	
@@ -108,9 +110,11 @@ public class Lottery {
 		/* !!!! Create an appropriate LotteryTicket object and update
 		 * 		the set of tickets sold so far.
 		 */
-		
-		
-		
+		int newTicketId = numOfTicketsSold + 1;
+		LotteryTicket newTicket = new LotteryTicket(newTicketId, this);
+		numOfTicketsSold++;
+		tickets.add(newTicket);
+		return newTicketId;
 	}
 	
 	/**
@@ -124,7 +128,11 @@ public class Lottery {
 		/* !!!! Create an appropriate LotteryTicket object and update
 		 * 		the set of tickets sold so far.
 		 */
-		
+		int newTicketId = numOfTicketsSold + 1;
+		LotteryTicket newTicket = new LotteryTicket(newTicketId, this, numbers);
+		numOfTicketsSold++;
+		tickets.add(newTicket);
+		return newTicketId;
 	}
 	
 	/**
@@ -156,8 +164,11 @@ public class Lottery {
 		 * 		Don't forget to keep all drawn numbers in the int array 
 		 * 		also.
 		 */
-		
-		
+		for (int i = 0 ; i < maxPick ; i++) {
+			int drawnNumber = availableNumbers.removeRandom();
+			winningNumbers.add(drawnNumber);
+			results[i] = drawnNumber;
+		}
 		
 		return results;
 	}
@@ -192,6 +203,11 @@ public class Lottery {
 		 */
 		String message = "";
 		
+		for (LotteryTicket ticket : tickets) {
+			if (ticket.chosenNumbers().intersection(winningNumbers).size() == maxPick) {
+				message += ticket.id() + " ";
+			}
+		}
 		
 		// If message is empty, that means no-one has won this time.
 		if (message.equals("")) {

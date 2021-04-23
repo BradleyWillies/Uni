@@ -52,8 +52,9 @@ public class LotteryTicket {
 		 *      lottery numbers.  
 		 */ 
 		// fill our set with lottery.maxPick() elements
-		
-		
+		for (int i = 0 ; i < lottery.maxPick() ; i++) {
+			chosenNumbers.add(random.nextInt(lottery.largest() + 1));
+		}
 	}
 	
 	/**
@@ -69,7 +70,7 @@ public class LotteryTicket {
 		 * 		of numbers to this lottery ticket.
 		 */
 		// Add all numbers to the (currently empty) set of chosen numbers. 
-		
+		chosenNumbers.addAll(numbers);
 	}
 	
 	/**
