@@ -48,11 +48,12 @@ public class Lottery {
 	 * Constructor 
 	 */
 	public Lottery(int largest, int maxPick) {
-		this.maxPick = maxPick;
 		this.largest = largest;
+		this.maxPick = maxPick;
 		/* !!!! Write an assignment statement here for initialising availableNumbers.
 		 */
 		// create the required numbers for this lottery
+		availableNumbers = new ArraySet<Integer>(largest);
 		for (int i = 1 ; i < largest ; i++) {
 			availableNumbers.add(i);
 		}
@@ -226,10 +227,10 @@ public class Lottery {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		int largest = 7;   // can also be 14, 49, 59, etc
-		int maxPick = 6;   // number of numbers to be pick in a lottery draw
+		int largest = 49;   // can also be 14, 49, 59, etc
+		int maxPick = 4;   // number of numbers to be pick in a lottery draw
 		Lottery lotto = new Lottery(largest, maxPick);
-		final int howMany = 1000;
+		final int howMany = 100000;
 		System.out.println("Selling " + howMany + " Lucky Dip tickets...");
 		for (int i = 0; i < howMany; i++)
 			lotto.sellTicket();
@@ -237,8 +238,8 @@ public class Lottery {
 		lotto.drawNumbers();
 		System.out.println(lotto.winningNumbers());
 		System.out.println(lotto.hasWon());
-		System.out.println("Showing all purchases ticket...");
-		System.out.println(lotto.allTickets());
+//		System.out.println("Showing all purchases ticket...");
+//		System.out.println(lotto.allTickets());
 	}
 
 }

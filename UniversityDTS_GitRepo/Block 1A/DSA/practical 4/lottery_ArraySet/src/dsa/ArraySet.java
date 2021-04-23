@@ -304,7 +304,7 @@ public class ArraySet<T> extends AbstractSet<T> {
 		/* !!!! Don't forget to uncomment the following line BEFORE
 		 *      you run the test.
 		 */
-//		System.out.println(s1.intersection(s2));		 
+		System.out.println(s1.intersection(s2));		 
 	}
 
 }

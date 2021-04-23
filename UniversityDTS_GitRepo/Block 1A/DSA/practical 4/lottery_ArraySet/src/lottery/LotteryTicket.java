@@ -53,7 +53,15 @@ public class LotteryTicket {
 		 */ 
 		// fill our set with lottery.maxPick() elements
 		for (int i = 0 ; i < lottery.maxPick() ; i++) {
-			chosenNumbers.add(random.nextInt(lottery.largest() + 1));
+			int randomNumber = 0;
+			boolean foundNewNumber = false;
+			while (!foundNewNumber) {
+				randomNumber = random.nextInt(lottery.largest() + 1);
+				if(!chosenNumbers.contains(randomNumber)) {
+					foundNewNumber = true;
+				}
+			}
+			chosenNumbers.add(randomNumber);
 		}
 	}
 	
