@@ -57,8 +57,8 @@ public class ArraySet<T> extends AbstractSet<T> {
 		 * 
 		 * N.B.: Arrays can be cloned effectively using their clone() method. 
 		 */
-		
-		
+		currentSize = set.currentSize;
+		contents = set.contents.clone();
 	}
 
 	@Override
@@ -95,10 +95,15 @@ public class ArraySet<T> extends AbstractSet<T> {
 		 *      
 		 *      Update the contents of this set using the new array.
 		 */
+		T[] newContents = (T[]) (new Object[contents.length * 2]);
 		
+		int i = 0;
+		for (T element : contents) {
+			newContents[i] = element;
+			i++;
+		}
 		
-		
-		
+		contents = newContents;
 	}
 
 	/* Adds an element to this set */
@@ -150,7 +155,7 @@ public class ArraySet<T> extends AbstractSet<T> {
 		/* !!!! Create a new SetADT<T> object for keeping the results 
 		 *      of our set intersection operation.
 		 */
-		
+		SetADT<T> intersectionSet = new ArraySet<T>();
 
 		/* !!!! Write Java code to iterate over either:
 		 * 		- the given set 
@@ -164,18 +169,42 @@ public class ArraySet<T> extends AbstractSet<T> {
 		 *      
 		 *      To improve efficiency, we iterate over the smaller set.
 		 */
-		
+		if(this.currentSize < anotherSet.size()) {
+			for (T element : this) {
+				if(anotherSet.contains(element)) {
+					intersectionSet.add(element);
+				}
+			}
+		}
+		else {
+			for (T element : anotherSet) {
+				if(this.contains(element)) {
+					intersectionSet.add(element);
+				}
+			}
+		}
 
 		/* !!!! Return the results of this intersection operation. 
 		 */
-		
+		return intersectionSet;
 	}
 
 	/* !!!! Write the method difference(SetADT<T>), which returns a new
 	 * 		ArraySet<T> object containing the result of performing 
 	 *      set difference between this set and the given set (i.e. "set").
 	 */
-
+	@Override
+	public ArraySet<T> difference(SetADT<T> set) {
+		ArraySet<T> differenceSet = new ArraySet<T>();
+		
+		for (T element : this) {
+			if(!set.contains(element)) {
+				differenceSet.add(element);
+			}
+		}
+		
+		return differenceSet;
+	}
 
 	/**
 	 * Returns a new set that is the union of this set and the parameter.
@@ -204,15 +233,15 @@ public class ArraySet<T> extends AbstractSet<T> {
 		 * a new SetADT<T> variable for storing the union
 		 * of this set and the given set. 
 		 */
-		
+		ArraySet<T> unionSet = new ArraySet<T>(this);
 
 		/* !!!! Add all elements in this set to the newly created ArraySet.
 		 */
-		
+		unionSet.addAll(set);
 
 		/* !!!! Return the results of this union operation. 
 		 */
-		
+		return unionSet;
 	}
 
 	public Iterator<T> iterator() {

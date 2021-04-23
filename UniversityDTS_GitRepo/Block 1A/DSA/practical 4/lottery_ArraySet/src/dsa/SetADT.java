@@ -27,12 +27,16 @@ public interface SetADT<T> extends Iterable<T>
 	 */
 	/* !!!! Add the abstract method addAll here.
 	 */ 
+	public boolean addAll(SetADT<T> A);
 	
-
-	/** Removes and returns a random element from this set. */
+	/** 
+	 * Removes and returns a random element from this set.
+	 * 
+	 *  @return a random item from the set
+	 */
 	/* !!!! Add the abstract method removeRandom here.
 	 */   
-	
+	public T removeRandom();
 	
 	/** 
 	 * Removes the specified element from the set.
@@ -78,7 +82,7 @@ public interface SetADT<T> extends Iterable<T>
 	 *      Don't forget to write an appropriate Java doc comment
 	 *      for this method.
 	 */ 	
-	
+	public SetADT<T> intersection(SetADT<T> A);
 
 	/**  
 	 * Returns a new set equal to  $(this \setminus A)$ 
