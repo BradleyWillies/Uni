@@ -16,11 +16,11 @@ public class SteppingRange implements SizedIterable<Integer> {
 	
 	@Override
 	public Iterator<Integer> iterator() {
-		return new SteppingRangeIterator(0, 1, 10);
+		return new SteppingRangeIterator(minVal, step, maxVal);
 	}
 	
-	public static void createSteppingRange(int minVal, int step, int maxVal) {
-		new SteppingRange(minVal, step, maxVal);
+	public static SizedIterable<Integer> range(int minVal, int step, int maxVal) {
+		return new SteppingRange(minVal, step, maxVal);
 	}
 	
 }

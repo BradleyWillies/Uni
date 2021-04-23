@@ -5,29 +5,27 @@ import java.util.NoSuchElementException;
 
 public class SteppingRangeIterator implements Iterator<Integer> {
 
-	private int minVal;
-	private int step;
-	private int maxVal;
+	private int current;
+	private final int step, max;
 	
-	public SteppingRangeIterator(int minVal, int step, int maxVal) {
-		this.minVal = minVal;
+	public SteppingRangeIterator(int current, int step, int max) {
+		this.current = current;
 		this.step = step;
-		this.maxVal = maxVal;
+		this.max = max;
 	}
 	
 	public boolean hasNext() {
-		try {
-			this.next();
-			return true;
-		}
-		catch(NoSuchValueException NSE) {
-			return false;
-		}
+		return (current < max);
 	}
 	
 	@Override
 	public Integer next() {
-		
+		if (current >= max) {
+			throw new NoSuchElementException();
+		}
+		final int result = current;
+		current += step;
+		return result;
 	}
 	
 }
