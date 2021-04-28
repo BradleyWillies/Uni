@@ -30,15 +30,34 @@
 					$errors = $errors . "ERROR: " . htmlspecialchars($reg) . " is not a valid string<br/>";
 					$errorFlag = true;
 				}
-				if (!is_numeric($rate) || $rate <= 0) {
+				if (!is_numeric($rate) || $rate < 0) {
 					$errors = $errors . "ERROR: " . htmlspecialchars($rate) . " is not a valid number<br/>";
 					$errorFlag = true;
 				}
-				if (errorFlag) {
+				if ($errorFlag) {
 					echo "<p>$errors</p>";
 				} else {
 					// SQL insert
-					
+					try {
+						// $reg = $pdo->quote($reg);
+						// $make = $pdo->quote($make);
+						// $rate = $pdo->quote($rate);
+						// $category = $pdo->quote($category);
+						$sql = "INSERT INTO vehicles 
+								(reg_no, category, brand, dailyrate)
+								VALUES
+								(:reg, :category, :make, :rate)";
+						$stmt = $pdo->prepare($sql);
+						$stmt->bindParam(':reg', $reg, PDO::PARAM_STR);
+						$stmt->bindParam(':category', $category, PDO::PARAM_STR);
+						$stmt->bindParam(':make', $make, PDO::PARAM_STR);
+						$stmt->bindParam(':rate', $rate, PDO::PARAM_STR);
+						$stmt->execute();
+						echo "<p>Vehicle added to database!</p>";
+						echo "<a href='http://localhost/unit4/addvehicles.php'>Refresh</a>";
+					} catch (PDOException $ex) {
+						echo "<p>Error inserting into database, error details: $ex->getMessage()</p>";
+					}
 				}
 				
 			} else {
