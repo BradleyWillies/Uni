@@ -15,6 +15,7 @@
 				$subtraction = $num1 - $num2;
 				$multiplication = $num1 * $num2;
 				$division = $num1 / $num2;
+				// print results
 				echo 	"<p>Your first input: {$num1}<br/>
 						Your second input: {$num2}<br/>
 						Addition result: {$addition}<br/>
@@ -22,6 +23,7 @@
 						Multiplication result: {$multiplication}<br/>
 						Division result: {$division}";
 			} else {
+				// print error message
 				echo "<p><b>ERROR</b><br/>Please enter any numbers other than 0</p>";
 			}
 		?>
