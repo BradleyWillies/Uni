@@ -1,6 +1,6 @@
 package uk.ac.aston.jpc.nested;
 
-import static uk.ac.aston.jpc.nested.original.SteppingRange.range;
+import static uk.ac.aston.jpc.nested.v4.SteppingRange.range;
 
 public class Main {
 
