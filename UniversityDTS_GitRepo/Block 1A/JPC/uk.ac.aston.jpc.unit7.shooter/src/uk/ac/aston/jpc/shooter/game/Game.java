@@ -9,6 +9,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import uk.ac.aston.jpc.shooter.game.entities.Bullet;
 import uk.ac.aston.jpc.shooter.game.entities.EnemyShip;
 import uk.ac.aston.jpc.shooter.game.entities.PlayerShip;
 import uk.ac.aston.jpc.shooter.game.graphics.SpriteSheet;
@@ -47,8 +48,21 @@ public class Game {
 	 * region is an animation frame for one of our sprites.
 	 */
 	private SpriteSheet loadSpriteSheet() {
-		// TODO need to load sprite sheet here (using Builder SMC and Region NSMC)
-		return null;
+		return new SpriteSheet.Builder(getSpriteSheetImage())
+				.ofSize(16, 16)
+				.at(0, 0).region(Bullet.REGIONS[0])
+				.at(16, 0).region(Bullet.REGIONS[1])
+				.at(32, 0).region(Bullet.REGIONS[2])
+				.at(0, 16).region(Bullet.REGIONS[3])
+				.at(16, 16).region(Bullet.REGIONS[4])
+				.at(32, 16).region(Bullet.REGIONS[5])
+				.at(0, 32).region(Bullet.REGIONS[6])
+				.at(16, 32).region(Bullet.REGIONS[7])
+				.ofSize(24,  46)
+				.at(48,  0).region(EnemyShip.REGION)
+				.ofSize(32, 42)
+				.at(72, 0).region(PlayerShip.REGION)
+				.build();
 	}
 
 	/**
