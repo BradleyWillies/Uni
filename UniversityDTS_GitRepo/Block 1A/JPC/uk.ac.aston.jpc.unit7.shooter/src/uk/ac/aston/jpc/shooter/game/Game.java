@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -129,14 +130,23 @@ public class Game {
 		gc.setFill(Color.BLACK);
 		gc.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-		// TODO need to loop through entities to draw them (use forEach + lambdas)
+//		entities.forEach(new Consumer<GameEntity>() {
+//			@Override
+//			public void accept(GameEntity t) {
+//				t.draw(gc);
+//			}
+//		});
+		
+		entities.forEach(e -> e.draw(gc));
 	}
 
 	/**
 	 * Advances the state of all entities by one tick.
 	 */
 	public void tick() {
-		// TODO need to loop through defensive copy of entities and tick over them
+		Set<GameEntity> entitiesCopy = new HashSet<>(entities);
+		
+		entitiesCopy.forEach(e -> e.tick(this));
 	}
 
 	/**
