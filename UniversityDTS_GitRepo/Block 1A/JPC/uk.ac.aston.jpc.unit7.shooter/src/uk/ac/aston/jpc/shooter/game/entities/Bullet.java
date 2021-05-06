@@ -1,6 +1,9 @@
 package uk.ac.aston.jpc.shooter.game.entities;
 
+import java.util.Set;
+
 import uk.ac.aston.jpc.shooter.game.Game;
+import uk.ac.aston.jpc.shooter.game.GameEntity;
 import uk.ac.aston.jpc.shooter.game.graphics.Sprite;
 import uk.ac.aston.jpc.shooter.game.graphics.SpriteSheet;
 
@@ -23,7 +26,20 @@ public class Bullet extends AbstractGameEntity {
 
 	@Override
 	public void tick(Game game) {
-		// TODO implement the bullet logic
+		if (this.getY() < 0) {
+			game.removeEntity(this);
+		}
+		else {
+			this.setXY(getX(), getY() + 8);
+			Set<GameEntity> collision = game.collidingWith(this);
+			if (!collision.isEmpty()) {
+				for (GameEntity entity : collision) {
+					game.removeEntity(entity);
+				}
+				game.removeEntity(this);
+				return;
+			}
+		}
 	}
 
 }
