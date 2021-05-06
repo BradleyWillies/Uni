@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -118,8 +119,9 @@ public class Game {
 	 * Returns the set of entities that collide with this one.
 	 */
 	public Set<GameEntity> collidingWith(GameEntity entity) {
-		// TODO need to use streams and lambdas here to detect colliding entities
-		return Collections.emptySet();
+		return entities.stream()
+				.filter(e -> entity.collidesWith(e))
+				.collect(Collectors.toSet());
 	}
 
 	/**

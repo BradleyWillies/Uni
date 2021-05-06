@@ -22,7 +22,15 @@ public class Bullet extends AbstractGameEntity {
 		super(new Sprite(sheet.getRegions(REGIONS)));
 	}
 
-	// TODO tweak collision logic (uses super.method)
+	@Override
+	public boolean collidesWith(GameEntity other) {
+		if (other instanceof EnemyShip) {
+			return super.collidesWith(other);
+		}
+		else {
+			return false;
+		}
+	}
 
 	@Override
 	public void tick(Game game) {
@@ -30,7 +38,7 @@ public class Bullet extends AbstractGameEntity {
 			game.removeEntity(this);
 		}
 		else {
-			this.setXY(getX(), getY() + 8);
+			this.setXY(getX(), getY() - 8);
 			Set<GameEntity> collision = game.collidingWith(this);
 			if (!collision.isEmpty()) {
 				for (GameEntity entity : collision) {
