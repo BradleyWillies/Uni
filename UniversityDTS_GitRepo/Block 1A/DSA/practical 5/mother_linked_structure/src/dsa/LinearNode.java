@@ -15,7 +15,8 @@ public class LinearNode<E>
 	 *         this object in the linear linked structure 
 	 *         (i.e. the "follower" of this LinearNode object).  
 	 */
-	
+	private E element;
+	private LinearNode<E> next;
 	
 
 	/**
@@ -26,8 +27,8 @@ public class LinearNode<E>
 		/* !!!! Write Java code to initialise the two fields which
 		 * 		you defined above.
 		 */	
-		
-		
+		element = null;
+		next = null;
 	}
 
 	/**
@@ -41,8 +42,8 @@ public class LinearNode<E>
 	 */
 	public LinearNode (E element)
 	{
-		
-		
+		this.element = element;
+		next = null;
 	}
 
 	/**

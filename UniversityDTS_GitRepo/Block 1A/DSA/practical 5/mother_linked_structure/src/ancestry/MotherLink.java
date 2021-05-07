@@ -19,7 +19,7 @@ public class MotherLink {
 	 *      This variable keeps track of the last in line 
 	 *      	in this mother link. 
 	 */ 
-	
+	private LinearNode<Female> lastInLine;
 
 	
 	/**
@@ -33,7 +33,7 @@ public class MotherLink {
 		 *      the parameter. This LinearNode object should now 
 		 *      correspond to the current last in line this mother link. 
 		 */
-		
+		lastInLine = new LinearNode<Female>(female);
 	}
 	
 	/**
@@ -45,16 +45,16 @@ public class MotherLink {
 		/* !!!! Create a new LinearNode object to keep track of 
 		 * 		the next last in line.
 		 */
-		
+		LinearNode<Female> nextLastInLine = new LinearNode<Female>(daughter);
 		
 		/* !!!! Make the daughter link to her mother.
 		 * 		The current last in line should become the next node of 
 		 * 		the new last in line.
 		 */
-		
+		nextLastInLine.setNext(lastInLine);
 		
 		// !!!! Make the daughter become the current last in line.
-		
+		lastInLine = nextLastInLine;
 	}
 
 	/**
