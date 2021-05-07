@@ -79,9 +79,14 @@ public class MotherLink {
 		 *      Don't forget to keep the counting going when we have not
 		 *      yet hit the end of the mother link.  
 		 */
-		
-		
-		
+		LinearNode<Female> current = lastInLine;
+		if (current != null) {
+			count++;
+			while (current.getNext() != null) {
+				count++;
+				current = current.getNext();
+			}
+		}
 		
 		return count; 
 	}
@@ -98,9 +103,7 @@ public class MotherLink {
 		/* !!!! Write the missing Java statement(s) to produce the result
 		 *		string as shown in the sample output.
 		 */
-		
-		
-		
+		results += "has " + this.size() + " people.\n";
 		
 		/* A local variable for keeping track of the number of tabs needed for
 		 * 	displaying the reverse ancestry hierarchy.
@@ -116,10 +119,20 @@ public class MotherLink {
 		 * 		you need to append a new message to the output so as
 		 * 		to ensure that the final output is a complete sentence. 
 		 */
-		
-		
-		
-		
+		if (current != null) {
+			results += "  They are:\n";
+			while (current != null){
+				for (int i = 0 ; i < tabCount ; i++) {
+					results += "\t";
+				}
+				results += current.getElement().toString();
+				current = current.getNext();
+				if (current != null) {
+					results += " who is the daughter of...\n";
+				}
+				tabCount++;
+			}
+		}
 		
 		return results;
 	}
