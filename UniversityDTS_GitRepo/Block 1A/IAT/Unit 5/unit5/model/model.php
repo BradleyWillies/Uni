@@ -91,8 +91,29 @@ class Model {
 	#returns the new balance after depositing amount to account; return null if failure
 	#it update balance of user id in the database
     public function deposit($id, $amount) {
+        // create statement object
+        $sql = "SELECT balance FROM savings WHERE id = ?";
+        $stmt = $pdo->prepare($sql);
 
+        // execute the query
+        $stmt->execute([$id]);
 
+        // process the result
+        if ($stmt->rowcount() > 0) {
+            $balance = $stmt->fetch(PDO::FETCH_ASSOC)['balance'];
+                $newBalance = $balance + $amount;
+
+                // create statement object
+                $sql = "UPDATE savings SET balance = ? WHERE id = ?";
+                $stmt = $pdo->prepare($sql);
+
+                // execute the query
+                $stmt->execute([$newBalance, $id]);
+
+                return $newBalance;
+        }
+
+        return null;
 	}
 }
 ?>
