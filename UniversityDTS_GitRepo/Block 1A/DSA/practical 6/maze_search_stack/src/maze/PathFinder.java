@@ -72,12 +72,12 @@ public class PathFinder {
 		/* !!!!
 		 * Record the entrance in the path stack.
 		 */ 
-		
+		reversedPath.push(maze.entrance());
 		
 		/* !!!! 
 		 * Mark the entrance as visited.
 		 */
-		
+		maze.markVisited(maze.entrance());
 		
 		/* ++++
 		 * Traverse the maze by moving from one position to another. 
@@ -97,15 +97,15 @@ public class PathFinder {
 			 * Look up the top element in the path stack 
 			 * 	(i.e. the current position within the maze).
 			 */
-			
+			Position currentPosition = reversedPath.peek();
 
 			/* !!!!
 			 * Determine if the exit has been found or 
 			 * 	further maze traversal is needed.
 			 */
-			
-			
-			
+			if (currentPosition.equals(maze.exit())) {
+				found = true;
+			}
 			else {
 				/* !!!!
 				 * 1. Get a list of the potential valid moves from the current position.
@@ -118,10 +118,16 @@ public class PathFinder {
 				 *     let the traversal to try an alternate path in the next iteration. 
 				 * 4. When making any move, don't forget to mark the position as visited.   
 				 */
+				List<Position> validMoves = maze.potentialMovesFrom(currentPosition);
 				
-				
-				
-				
+				if (validMoves.size() == 0) {
+					reversedPath.pop();
+				}
+				else {
+					Position newPosition = validMoves.get(0);
+					reversedPath.push(newPosition);
+					maze.markVisited(newPosition);
+				}
 				
 			}
 		}
