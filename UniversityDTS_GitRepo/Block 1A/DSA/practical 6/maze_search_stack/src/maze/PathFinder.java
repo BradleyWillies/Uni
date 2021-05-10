@@ -43,8 +43,8 @@ public class PathFinder {
 		 * Initialise the fields for this PathFinder object using
 		 * the given Maze object and an empty stack. 
 		 */
-		
-		
+		this.maze = maze;
+		this.reversedPath = new LinkedStack<Position>();
 	}
 	
 	/**
@@ -148,9 +148,16 @@ public class PathFinder {
 		 * 3. Repeat Step (2) until no more elements to work with.
 		 * 4. Return the result stack.  
 		 */
+		// 1
+		StackADT<Position> resultingPath = new LinkedStack<Position>();
 		
+		// 2 & 3
+		while (!reversedPath.isEmpty()) {
+			resultingPath.push(reversedPath.pop());
+		}
 		
-		
+		// 4
+		return resultingPath;
 	}
 
 	/**
