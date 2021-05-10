@@ -1,8 +1,8 @@
 <?php
 if (isset($_POST["balance"])) {
 #Use the "id" from the form input and Get balance value of this id into $account
-#you should call the model method call the Model's getAccountById() method 
-
+#you should call the model method call the Model's getAccountById() method
+$account = $this->model->getAccountById($_POST["id"]);
 
 
  if ($account != null) {
@@ -24,4 +24,3 @@ if (isset($_POST["balance"])) {
         <input type="submit" name="balance" value="balance">
 </div>
 </form>
-

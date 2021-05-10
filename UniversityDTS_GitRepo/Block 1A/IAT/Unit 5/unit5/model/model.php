@@ -26,7 +26,7 @@ class Model {
         $dsn = "mysql:host={$this->server};dbname={$this->dbname};charset={$charset}";
         $opt = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
         try {
-    		$pdo = new PDO($dsn, $this->username, $this->password, $opt);
+    		$this->pdo = new PDO($dsn, $this->username, $this->password, $opt);
     	} catch (PDOException $ex) {
     		echo "<p>Database error, details: $ex->getMessage()</p>";
     	}
@@ -36,9 +36,11 @@ class Model {
 	#it querys database and create an object account if the id exists in database;
 	#return null otherwise
     public function getAccountById($id) {
+        $this->connect();
+
         // create statement object
         $sql = "SELECT id, balance FROM savings WHERE id = ?";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
 
         // execute the query
         $stmt->execute([$id]);
@@ -47,9 +49,11 @@ class Model {
         if ($stmt->rowcount() > 0) {
             $rowFields = $stmt->fetch(PDO::FETCH_ASSOC);
             $balance = $rowFields['balance'];
+            $this->pdo = null;
             return new Account($id, $balance);
         }
         else {
+            $this->pdo = null;
             return null;
         }
 	}
@@ -59,9 +63,11 @@ class Model {
 	#it update balance of user id in the database
 	#should check whether amount is less than or equal to current balance
     public function withdraw($id, $amount) {
+        $this->connect();
+
         // create statement object
         $sql = "SELECT balance FROM savings WHERE id = ?";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
 
         // execute the query
         $stmt->execute([$id]);
@@ -74,15 +80,16 @@ class Model {
 
                 // create statement object
                 $sql = "UPDATE savings SET balance = ? WHERE id = ?";
-                $stmt = $pdo->prepare($sql);
+                $stmt = $this->pdo->prepare($sql);
 
                 // execute the query
                 $stmt->execute([$newBalance, $id]);
 
+                $this->pdo = null;
                 return $newBalance;
             }
         }
-
+        $this->pdo = null;
         return null;
     }
 
@@ -91,9 +98,11 @@ class Model {
 	#returns the new balance after depositing amount to account; return null if failure
 	#it update balance of user id in the database
     public function deposit($id, $amount) {
+        $this->connect();
+
         // create statement object
         $sql = "SELECT balance FROM savings WHERE id = ?";
-        $stmt = $pdo->prepare($sql);
+        $stmt = $this->pdo->prepare($sql);
 
         // execute the query
         $stmt->execute([$id]);
@@ -105,14 +114,15 @@ class Model {
 
                 // create statement object
                 $sql = "UPDATE savings SET balance = ? WHERE id = ?";
-                $stmt = $pdo->prepare($sql);
+                $stmt = $this->pdo->prepare($sql);
 
                 // execute the query
                 $stmt->execute([$newBalance, $id]);
 
+                $this->pdo = null;
                 return $newBalance;
         }
-
+        $this->pdo = null;
         return null;
 	}
 }
