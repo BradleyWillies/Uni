@@ -23,10 +23,10 @@ class Model {
 	#Using the try/catch structure to handle the database connection error
     public function connect() {
         $charset = 'utf8mb4';
-        $dsn = "mysql:host={$server};dbname={$dbname};charset={$charset}";
+        $dsn = "mysql:host={$this->server};dbname={$this->dbname};charset={$charset}";
         $opt = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
         try {
-    		$pdo = new PDO($dsn, $username, $password, $opt);
+    		$pdo = new PDO($dsn, $this->username, $this->password, $opt);
     	} catch (PDOException $ex) {
     		echo "<p>Database error, details: $ex->getMessage()</p>";
     	}
@@ -37,13 +37,21 @@ class Model {
 	#return null otherwise
     public function getAccountById($id) {
         // create statement object
-        $sql = "SELECT id, balance FROM savings WHERE id = $id";
+        $sql = "SELECT id, balance FROM savings WHERE id = ?";
         $stmt = $pdo->prepare($sql);
 
         // execute the query
-        $stmt->execute();
+        $stmt->execute([$id]);
 
         // process the result
+        if ($stmt->rowcount() > 0) {
+            $rowFields = $stmt->fetch(PDO::FETCH_ASSOC);
+            $balance = $rowFields['balance'];
+            return new Account($id, $balance);
+        }
+        else {
+            return null;
+        }
 	}
 
 	#method to withdraw money from account
@@ -51,8 +59,31 @@ class Model {
 	#it update balance of user id in the database
 	#should check whether amount is less than or equal to current balance
     public function withdraw($id, $amount) {
+        // create statement object
+        $sql = "SELECT balance FROM savings WHERE id = ?";
+        $stmt = $pdo->prepare($sql);
 
+        // execute the query
+        $stmt->execute([$id]);
 
+        // process the result
+        if ($stmt->rowcount() > 0) {
+            $balance = $stmt->fetch(PDO::FETCH_ASSOC)['balance'];
+            if ($amount <= $balance) {
+                $newBalance = $balance - $amount;
+
+                // create statement object
+                $sql = "UPDATE savings SET balance = ? WHERE id = ?";
+                $stmt = $pdo->prepare($sql);
+
+                // execute the query
+                $stmt->execute([$newBalance, $id]);
+
+                return $newBalance;
+            }
+        }
+
+        return null;
     }
 
 
