@@ -85,7 +85,7 @@ public class CircularArrayQueue<T> implements QueueADT<T>
 			throw new IllegalStateException("queue is empty");
 		
 		/* !!!! Return the first element in this queue */
-		
+		return contents[front];
 	}
 	
 	/******************************************************************
@@ -97,7 +97,7 @@ public class CircularArrayQueue<T> implements QueueADT<T>
 		 * 		the rear index AND the front of the queue is not occupied by
 		 * 		any element.
 		 */  
-		
+		return (front == rear && contents[front].equals(null));
 	}
 	
 	/******************************************************************
