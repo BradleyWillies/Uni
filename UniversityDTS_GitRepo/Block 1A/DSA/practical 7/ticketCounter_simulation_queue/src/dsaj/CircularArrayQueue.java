@@ -69,9 +69,13 @@ public class CircularArrayQueue<T> implements QueueADT<T>
 		 *    (Remember that it is a circular queue, hence "loop-back" may be needed.)
 		 * 4. Return the removed element.
 		 */
+		if (isEmpty())
+			throw new IllegalStateException("queue empty");
 		
-		
-		
+		T result = contents[front];
+		contents[front] = null;
+		front = (front + 1) % contents.length;
+		return result;
 	}
 	
 	/******************************************************************
@@ -157,7 +161,7 @@ public class CircularArrayQueue<T> implements QueueADT<T>
 		 * 		at the required location.
 		 */
 		for (int i = 0 ; i < size() ; i++) {
-			int index = front + i > contents.length ? (front + i - contents.length) : (front + i);
+			int index = front + i > contents.length ? (front + i % contents.length) : (front + i);
 			result += "Element at index " + index + ": " + contents[index] + "\n";
 		}
 		
