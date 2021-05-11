@@ -156,8 +156,12 @@ public class CircularArrayQueue<T> implements QueueADT<T>
 		 * 		to our result string. Make sure that the index can "loop back"
 		 * 		at the required location.
 		 */
+		for (int i = 0 ; i < size() ; i++) {
+			int index = front + i > contents.length ? (front + i - contents.length) : (front + i);
+			result += "Element at index " + index + ": " + contents[index] + "\n";
+		}
 		
-		
+		return result;
 	}
 	
 	/******************************************************************
