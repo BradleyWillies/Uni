@@ -101,7 +101,7 @@ public class CircularArrayQueue<T> implements QueueADT<T>
 		 * 		the rear index AND the front of the queue is not occupied by
 		 * 		any element.
 		 */  
-		return (front == rear && contents[front].equals(null));
+		return (front == rear && contents[front] == null);
 	}
 	
 	/******************************************************************
