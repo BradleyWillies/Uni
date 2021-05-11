@@ -128,7 +128,15 @@ public class CircularArrayQueue<T> implements QueueADT<T>
 		 * 		
 		 * N.B. A method runs in constant time!
 		 */
-		
+		if (front == rear && isEmpty()) { // queue is empty
+			size = 0;
+		}
+		else if (front == rear && !isEmpty()) { // queue is full
+			size = DEFAULT_CAPACITY;
+		}
+		else {
+			size = front > rear ? (contents.length - front + rear + 1) : (rear - front);
+		}
 		
 		return size;
 	}
