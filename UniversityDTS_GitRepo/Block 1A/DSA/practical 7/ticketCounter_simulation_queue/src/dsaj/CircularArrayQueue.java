@@ -139,7 +139,7 @@ public class CircularArrayQueue<T> implements QueueADT<T>
 			size = DEFAULT_CAPACITY;
 		}
 		else {
-			size = front > rear ? (contents.length - front + rear + 1) : (rear - front);
+			size = front > rear ? (contents.length - front + rear) : (rear - front);
 		}
 		
 		return size;
@@ -162,7 +162,7 @@ public class CircularArrayQueue<T> implements QueueADT<T>
 		 */
 		for (int i = 0 ; i < size() ; i++) {
 			int index = front + i > contents.length ? (front + i % contents.length) : (front + i);
-			result += "Element at index " + index + ": " + contents[index] + "\n";
+			result += contents[index] + "\n";
 		}
 		
 		return result;
