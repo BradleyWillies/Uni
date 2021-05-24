@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('/hello', function(){
 	return 'Hello World!';
 });
+
+Route::get('list', 'App\Http\Controllers\AccountController@list');
+
+Route::get('show/{id}', 'App\Http\Controllers\AccountController@show');
