@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Dictionary of words for the Anagram game.
  */
 public class AnagramsDictionary {
+	
+	private List<String> wordList = new ArrayList<String>();
 
 	/**
 	 * Loads the dictionary from a source of bytes, which is exhausted and closed.
@@ -24,6 +27,7 @@ public class AnagramsDictionary {
 			while ((line = reader.readLine()) != null) {
 				// do something with the line
 				String word = line.trim();
+				wordList.add(word);
 			}
 		}
 	}
@@ -33,6 +37,18 @@ public class AnagramsDictionary {
 	 */
 	public AnagramsDictionary() {
 		// nothing to do!
+	}
+	
+	/**
+	 * Takes a string and outputs that string in alphabetical order
+	 * 
+	 * @param word
+	 * @return char[] of the input string with letters in alphabetical order
+	 */
+	private char[] sortLetters(String inputString) {
+		char[] chars = inputString.toCharArray();
+		Arrays.sort(chars);
+		return chars;
 	}
 
 	/**
