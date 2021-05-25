@@ -1,0 +1,7 @@
+.correct {
+    -fx-text-fill: forestgreen;
+}
+
+.wrong {
+    -fx-text-fill: red;
+}

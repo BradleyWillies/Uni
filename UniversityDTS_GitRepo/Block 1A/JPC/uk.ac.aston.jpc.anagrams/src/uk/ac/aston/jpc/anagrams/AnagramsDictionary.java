@@ -63,6 +63,11 @@ public class AnagramsDictionary {
 	 */
 	public List<String> getAnagrams(String word) {
 		List<String> candidates = new ArrayList<>();
+		for(String possibleWord : wordList) {
+			if(Arrays.equals(sortLetters(possibleWord), sortLetters(word))) {
+				candidates.add(possibleWord);
+			}
+		}
 		return candidates;
 	}
 

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="500.0" prefWidth="300.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="uk.ac.aston.jpc.anagrams.AnagramsController">
+   <children>
+      <Button layoutX="14.0" layoutY="461.0" mnemonicParsing="false" text="Start Over" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" onAction="#resetPressed" />
+      <GridPane layoutX="14.0" layoutY="132.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" hgap="5" vgap="5">
+        <columnConstraints>
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
+          <ColumnConstraints hgrow="SOMETIMES" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="1.7976931348623157E308" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField promptText="Word" GridPane.rowIndex="1" fx:id="txtWord" />
+            <Button mnemonicParsing="false" prefHeight="25.0" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="1" onAction="#submitPressed">
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+            </Button>
+            <Label text="${'Submit as many words as possible that can be formed by adding one letter to &quot;' + controller.currentWord + '&quot; (but that do not contain the substring badge). Click Start Over to pick another word!'}" wrapText="true" GridPane.columnSpan="2" />
+            <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" fx:id="lstSubmissions" />
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>
