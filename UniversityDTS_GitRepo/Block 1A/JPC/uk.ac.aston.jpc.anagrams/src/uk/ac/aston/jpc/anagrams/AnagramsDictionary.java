@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -20,6 +21,9 @@ public class AnagramsDictionary {
 	private List<String> wordList = new ArrayList<String>();
 	private Map<String, List<String>> lettersToWord = new HashMap<String, List<String>>();
 	private Set<String> wordSet = new HashSet<>();
+	private static final int MIN_NUM_ANAGRAMS = 5;
+	private Random rnd = new Random();
+	private Map<Integer, List<String>> sizeToWords = new HashMap<Integer, List<String>>();
 
 	/**
 	 * Loads the dictionary from a source of bytes, which is exhausted and closed.
@@ -43,8 +47,16 @@ public class AnagramsDictionary {
 					List<String> newList = new ArrayList<>(Arrays.asList(word));
 					lettersToWord.put(sortedWord, newList);
 				}
-				//populate wordSet
+				// populate wordSet
 				wordSet.add(word);
+				// populate sizeToWords
+				if(sizeToWords.containsKey(word.length())) {
+					sizeToWords.get(word.length()).add(word);
+				}
+				else {
+					List<String> newNewList = new ArrayList<>(Arrays.asList(word));
+					sizeToWords.put(word.length(), newNewList);
+				}
 			}
 		}
 	}
@@ -72,7 +84,20 @@ public class AnagramsDictionary {
 	 * Picks a word that is fun to start from.
 	 */
 	public String pickGoodStarterWord() {
-		return "stop";
+		int start = rnd.nextInt(wordList.size());
+		int i = start;
+		do {
+			String word = wordList.get(i);
+			List<String> anagrams = getAnagramsWithOneMoreLetter(word);
+			if(anagrams.size() >= MIN_NUM_ANAGRAMS) {
+				return word;
+			}
+			i++;
+			if (i > wordList.size()) {
+				i = 0;
+			}
+		} while (i != start);
+		return "";
 	}
 
 	/**
