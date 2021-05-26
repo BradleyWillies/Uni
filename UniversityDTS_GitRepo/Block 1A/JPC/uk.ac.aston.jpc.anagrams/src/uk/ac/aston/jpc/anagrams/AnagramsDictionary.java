@@ -7,8 +7,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Dictionary of words for the Anagram game.
@@ -17,6 +19,7 @@ public class AnagramsDictionary {
 	
 	private List<String> wordList = new ArrayList<String>();
 	private Map<String, List<String>> lettersToWord = new HashMap<String, List<String>>();
+	private Set<String> wordSet = new HashSet<>();
 
 	/**
 	 * Loads the dictionary from a source of bytes, which is exhausted and closed.
@@ -40,6 +43,8 @@ public class AnagramsDictionary {
 					List<String> newList = new ArrayList<>(Arrays.asList(word));
 					lettersToWord.put(sortedWord, newList);
 				}
+				//populate wordSet
+				wordSet.add(word);
 			}
 		}
 	}
@@ -100,7 +105,10 @@ public class AnagramsDictionary {
 	 * Is this a valid word, which is not a substring of the base word?
 	 */
 	public boolean isGoodWord(String word, String base) {
-		return true;
+		if(wordSet.contains(word) && !word.contains(base)) {
+			return true;
+		}
+		return false;
 	}
 
 }
