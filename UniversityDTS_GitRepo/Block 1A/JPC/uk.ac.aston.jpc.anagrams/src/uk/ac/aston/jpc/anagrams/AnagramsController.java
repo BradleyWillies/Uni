@@ -119,7 +119,7 @@ public class AnagramsController {
 
 	private void pickNextWord() {
 		currentWord.set(dictionary.pickGoodStarterWord());
-		anagrams = dictionary.getAnagrams(currentWord.get());
+		anagrams = dictionary.getAnagramsWithOneMoreLetter(currentWord.get());
 		lstSubmissions.getItems().clear();
 	}
 

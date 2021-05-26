@@ -98,6 +98,9 @@ public class AnagramsDictionary {
 	 */
 	public List<String> getAnagramsWithOneMoreLetter(String string) {
 		List<String> candidates = new ArrayList<>();
+		for(char c = 'a' ; c <= 'z' ; c = (char) (c + 1)) {
+			candidates.addAll(getAnagrams(string + c));
+		}
 		return candidates;
 	}
 
