@@ -24,7 +24,9 @@ public class AnagramsDictionary {
 	private static final int MIN_NUM_ANAGRAMS = 5;
 	private Random rnd = new Random();
 	private Map<Integer, List<String>> sizeToWords = new HashMap<Integer, List<String>>();
-
+	private static final int DEFAULT_WORD_LENGTH = 4;
+	private int wordLength = DEFAULT_WORD_LENGTH;
+	
 	/**
 	 * Loads the dictionary from a source of bytes, which is exhausted and closed.
 	 * 
@@ -84,19 +86,39 @@ public class AnagramsDictionary {
 	 * Picks a word that is fun to start from.
 	 */
 	public String pickGoodStarterWord() {
-		int start = rnd.nextInt(wordList.size());
-		int i = start;
-		do {
-			String word = wordList.get(i);
-			List<String> anagrams = getAnagramsWithOneMoreLetter(word);
-			if(anagrams.size() >= MIN_NUM_ANAGRAMS) {
-				return word;
-			}
-			i++;
-			if (i > wordList.size()) {
-				i = 0;
-			}
-		} while (i != start);
+//		int start = rnd.nextInt(wordList.size());
+//		int i = start;
+//		do {
+//			String word = wordList.get(i);
+//			List<String> anagrams = getAnagramsWithOneMoreLetter(word);
+//			if(anagrams.size() >= MIN_NUM_ANAGRAMS) {
+//				return word;
+//			}
+//			i++;
+//			if (i > wordList.size()) {
+//				i = 0;
+//			}
+//		} while (i != start);
+//		return "";
+		if(sizeToWords.containsKey(wordLength)) {
+			int start = rnd.nextInt(sizeToWords.get(wordLength).size());
+			System.out.println("start = " + start);
+			System.out.println("size = " + sizeToWords.get(wordLength).size());
+			int i = start;
+			do {
+				System.out.println("i = " + i);
+				String word = sizeToWords.get(wordLength).get(i);
+				List<String> anagrams = getAnagramsWithOneMoreLetter(word);
+				if(anagrams.size() >= MIN_NUM_ANAGRAMS) {
+					wordLength++;
+					return word;
+				}
+				i++;
+				if (i > sizeToWords.get(wordLength).size() - 1) {
+					i = 0;
+				}
+			} while (i != start);
+		}
 		return "";
 	}
 
