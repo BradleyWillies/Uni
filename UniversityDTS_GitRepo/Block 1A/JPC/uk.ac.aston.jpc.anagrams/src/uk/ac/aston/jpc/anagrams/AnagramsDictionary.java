@@ -6,7 +6,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Dictionary of words for the Anagram game.
@@ -14,6 +16,7 @@ import java.util.List;
 public class AnagramsDictionary {
 	
 	private List<String> wordList = new ArrayList<String>();
+	private Map<String, List<String>> lettersToWord = new HashMap<String, List<String>>();
 
 	/**
 	 * Loads the dictionary from a source of bytes, which is exhausted and closed.
@@ -28,6 +31,15 @@ public class AnagramsDictionary {
 				// do something with the line
 				String word = line.trim();
 				wordList.add(word);
+				// populate lettersToWord
+				String sortedWord = new String(sortLetters(word));
+				if(lettersToWord.containsKey(sortedWord)) {
+					lettersToWord.get(sortedWord).add(word);
+				}
+				else {
+					List<String> newList = new ArrayList<>(Arrays.asList(word));
+					lettersToWord.put(sortedWord, newList);
+				}
 			}
 		}
 	}
@@ -63,10 +75,14 @@ public class AnagramsDictionary {
 	 */
 	public List<String> getAnagrams(String word) {
 		List<String> candidates = new ArrayList<>();
-		for(String possibleWord : wordList) {
-			if(Arrays.equals(sortLetters(possibleWord), sortLetters(word))) {
-				candidates.add(possibleWord);
-			}
+//		for(String possibleWord : wordList) {
+//			if(Arrays.equals(sortLetters(possibleWord), sortLetters(word))) {
+//				candidates.add(possibleWord);
+//			}
+//		}
+		String sortedWord = new String(sortLetters(word));
+		if(lettersToWord.containsKey(sortedWord)) {
+			candidates = lettersToWord.get(sortedWord);
 		}
 		return candidates;
 	}
