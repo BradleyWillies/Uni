@@ -20,7 +20,7 @@ import java.util.Set;
  * Make sure that you have passed an appropriate value to EACH of the type variables declared in 
  * the interfaces java.lang.Comparable and phonebook.Contact.
  */
-public class Correspondence 
+public class Correspondence<T, K, V, Ph> implements Comparable<T>, Contact<K, V, Ph>
 {
 	private String nickname;				// the nickname for this correspondence
 	private String name;					// the name of this correspondence 
@@ -103,7 +103,9 @@ public class Correspondence
 	 * (non-Javadoc)
 	 * @see phonebook.KeyValuePair#key()
 	 */
-	
+	public String key() {
+		return nickname + name;
+	}
 
 	/* !!!!
 	 * Returns the value for this object.
