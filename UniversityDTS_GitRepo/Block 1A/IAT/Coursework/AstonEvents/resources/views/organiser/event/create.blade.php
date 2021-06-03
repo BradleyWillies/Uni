@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Create Event') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('dashboard.event.store') }}">
+                    <form method="POST" action="{{ route('dashboard.event.store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
@@ -55,16 +55,16 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="category" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
+                            <label for="event_category_id" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
 
                             <div class="col-md-6">
-                                <select name="category" id="category" required>
+                                <select name="event_category_id" id="event_category_id" required>
                                     @foreach($eventCategories as $eventCategory)
-                                        <option value="{{ $eventCategory->id }}" @if(old("category") == $eventCategory->id) selected @endif>{{ $eventCategory->name }}</option>
+                                        <option value="{{ $eventCategory->id }}" @if(old("event_category_id") == $eventCategory->id) selected @endif>{{ $eventCategory->name }}</option>
                                     @endforeach
                                 </select>
 
-                                @error('category')
+                                @error('event_category_id')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -90,8 +90,8 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Image(s)') }}</label>
 
                             <div class="col-md-6">
-                                <input id="images" type="file" class="form-control @error('images') is-invalid @enderror" name="images" required autofocus multiple>
-                                <small style="font-size: 10px">Select multiple images from the explorer/finder by holding ctrl/⌘</small>
+                                <input id="images" type="file" class="form-control @error('images') is-invalid @enderror" name="images[]" required autofocus multiple>
+                                <small style="font-size: 10px">Select multiple images from the explorer / finder by holding ctrl / ⌘</small>
 
                                 @error('images')
                                 <span class="invalid-feedback" role="alert">

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Organiser;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EventRequest;
+use App\Models\Event;
 use App\Models\EventCategory;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::where('organiser_id', '=', auth()->user()->organiser->id)->get();
+        return redirect()->route("dashboard")->with("events", $events);
     }
 
     /**
@@ -32,12 +35,16 @@ class EventController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  EventRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(EventRequest $request)
     {
-        //
+        $event = new Event();
+        $event->fill($request->all());
+        $event->organiser_id = auth()->user()->organiser->id;
+        $event->save();
+        return redirect()->route("dashboard")->with("success", "Event created");
     }
 
     /**
@@ -48,7 +55,7 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
+        $event = Event::find($id);
     }
 
     /**

@@ -21,7 +21,7 @@ class CreateEventsTable extends Migration
             $table->dateTime('date_time');
             $table->string('description');
             $table->string('location');
-            $table->integer('interest_ranking');
+            $table->integer('interest_ranking')->default(0);
             $table->timestamps();
         });
     }

@@ -76,6 +76,25 @@
         </nav>
 
         <main class="py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        @if($errors->any())
+                        <ul class="alert alert-danger" style="list-style-type: none">
+                            @foreach ($errors->all() as $error)
+                                <li >{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        @endif
+                        @if (session()->has('success'))
+                            <ul class="alert alert-success" style="list-style-type: none">
+                                <li>{!! session()->get('success') !!}</li>
+                            </ul>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
             @yield('content')
         </main>
     </div>

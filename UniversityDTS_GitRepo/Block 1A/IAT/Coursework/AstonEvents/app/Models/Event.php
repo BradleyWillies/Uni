@@ -10,6 +10,19 @@ class Event extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'description',
+        'location',
+        'event_category_id',
+        'date_time'
+    ];
+
+    /**
      * Get the organiser that owns the event.
      */
     public function organiser(): \Illuminate\Database\Eloquent\Relations\BelongsTo

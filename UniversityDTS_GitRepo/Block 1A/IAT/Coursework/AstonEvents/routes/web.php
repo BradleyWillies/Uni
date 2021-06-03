@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Organiser\DashboardController;
+use App\Http\Controllers\Organiser\EventController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +23,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-Route::get('/dashboard/event/create', [\App\Http\Controllers\Organiser\EventController::class, 'create'])->name('dashboard.event.create');
-Route::post('/dashboard/event/store', [\App\Http\Controllers\Organiser\EventController::class, 'store'])->name('dashboard.event.store');
+Route::get('/dashboard/event/create', [EventController::class, 'create'])->name('dashboard.event.create');
+Route::post('/dashboard/event/store', [EventController::class, 'store'])->name('dashboard.event.store');
+Route::post('/dashboard/event/show', [EventController::class, 'show'])->name('dashboard.event.show');

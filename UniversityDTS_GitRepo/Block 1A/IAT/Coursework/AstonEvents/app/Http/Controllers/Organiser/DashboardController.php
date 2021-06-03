@@ -24,6 +24,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $eventController = new EventController();
+        $eventController->index();
         return view('organiser.dashboard');
     }
 }
