@@ -13,12 +13,12 @@ class EventController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
         $events = Event::where('organiser_id', '=', auth()->user()->organiser->id)->get();
-        return redirect()->route("dashboard")->with("events", $events);
+        return view('organiser.dashboard', compact('events'));
     }
 
     /**
@@ -44,29 +44,35 @@ class EventController extends Controller
         $event->fill($request->all());
         $event->organiser_id = auth()->user()->organiser->id;
         $event->save();
-        return redirect()->route("dashboard")->with("success", "Event created");
+        return redirect()->route("dashboard.event.index")->with("success", "Event created");
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show($id)
     {
         $event = Event::find($id);
+//        dd($event->date_time);
+        $eventCategories = EventCategory::all();
+        return view('organiser.event.show', compact('event', 'eventCategories'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  EventRequest $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit($id)
+    public function edit(EventRequest $request, int $id)
     {
-        //
+        $event = Event::find($id);
+        $event->update($request->all());
+        return redirect()->route("dashboard.event.index")->with("success", "Event updated");
     }
 
     /**

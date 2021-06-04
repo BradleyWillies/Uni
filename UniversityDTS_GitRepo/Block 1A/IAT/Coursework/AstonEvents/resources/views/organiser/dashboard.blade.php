@@ -15,27 +15,27 @@
                     @endif
 
                     {{ __('Welcome ' . auth()->user()->organiser->name) }}
+                        <a href="{{route('dashboard.event.create')}}" class="btn btn-primary float-right">{{ __('New Event') }}</a>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-body">
-                    @if (session()->has('events'))
-                        <?php $events = session()->get('events'); ?>
+                    @if (count($events) > 0)
                         <table border='1' style='border-collapse:collapse; text-align:center'>
                             <tr>
                                 <th>Name</th><th>Description</th><th>Location</th><th>Date/Time</th><th>Interest Ranking</th>
                             </tr>
 
-                            <?php foreach ($events as $event) { ?>
+                            @foreach ($events as $event)
                                 <tr>
-                                    <td><?= $event['name'] ?></td>
-                                    <td><?= $event['description'] ?></td>
-                                    <td><?= $event['location'] ?></td>
-                                    <td><?= $event['date_time'] ?></td>
-                                    <td><?= $event['interest_ranking'] ?></td>
+                                    <td><a href="{{route("dashboard.event.show", $event->id)}}">{{Str::limit($event['name'], 50)}}</a></td>
+                                    <td>{{Str::limit($event['description'], 50)}}</td>
+                                    <td>{{Str::limit($event['location'], 50)}}</td>
+                                    <td>{{$event['date_time']->format("d-m-Y H:i")}}</td>
+                                    <td>{{$event['interest_ranking']}}</td>
                                 </tr>
-                            <?php } ?>
+                            @endforeach
                         </table>
                     @endif
                 </div>

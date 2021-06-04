@@ -34,4 +34,16 @@ class EventRequest extends FormRequest
             'images.*' => 'image|max:1024'
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'name',
+            'description' => 'description',
+            'location' => 'location',
+            'event_category_id' => 'category',
+            'date_time' => 'date/time',
+            'images' => 'image(s)'
+        ];
+    }
 }

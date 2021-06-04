@@ -23,6 +23,15 @@ class Event extends Model
     ];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'date_time' => 'datetime',
+    ];
+
+    /**
      * Get the organiser that owns the event.
      */
     public function organiser(): \Illuminate\Database\Eloquent\Relations\BelongsTo

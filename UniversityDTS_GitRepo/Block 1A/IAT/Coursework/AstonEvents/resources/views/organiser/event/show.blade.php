@@ -5,17 +5,18 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><a href="{{route('dashboard.event.index')}}">Dashboard</a> -> {{ __('Create Event') }}</div>
+                <div class="card-header"><a href="{{route('dashboard.event.index')}}">Dashboard</a> -> {{ __('Update Event') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('dashboard.event.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('dashboard.event.edit', $event->id) }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') ? : $event->name }}" required autocomplete="name" autofocus>
+
                             </div>
                         </div>
 
@@ -23,7 +24,7 @@
                             <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Description') }}</label>
 
                             <div class="col-md-6">
-                                <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description" required autocomplete="description" autofocus>{{ old('description') }}</textarea>
+                                <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description" required autocomplete="description" autofocus>{{ old('description') ? : $event->description }}</textarea>
                             </div>
                         </div>
 
@@ -31,7 +32,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Location') }}</label>
 
                             <div class="col-md-6">
-                                <input id="location" type="text" class="form-control @error('location') is-invalid @enderror" name="location" value="{{ old('location') }}" required autocomplete="location" autofocus>
+                                <input id="location" type="text" class="form-control @error('location') is-invalid @enderror" name="location" value="{{ old('location') ? : $event->location}}" required autocomplete="location" autofocus>
                             </div>
                         </div>
 
@@ -41,7 +42,7 @@
                             <div class="col-md-6">
                                 <select name="event_category_id" id="event_category_id" required>
                                     @foreach($eventCategories as $eventCategory)
-                                        <option value="{{ $eventCategory->id }}" @if(old("event_category_id") == $eventCategory->id) selected @endif>{{ $eventCategory->name }}</option>
+                                        <option value="{{ $eventCategory->id }}" @if((old("event_category_id") ? : $event->event_category_id) == $eventCategory->id) selected @endif>{{ $eventCategory->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -51,7 +52,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Date/Time') }}</label>
 
                             <div class="col-md-6">
-                                <input id="date_time" type="datetime-local" class="form-control @error('date_time') is-invalid @enderror" name="date_time" value="{{ old('date_time') }}" required autocomplete="date_time" autofocus>
+                                <input id="date_time" type="datetime-local" class="form-control @error('date_time') is-invalid @enderror" name="date_time" value="{{ old('date_time') ? : $event->date_time->format("Y-m-d\TH:i")}}" required autocomplete="date_time" autofocus>
                             </div>
                         </div>
 
@@ -70,7 +71,7 @@
                             </div>
                             <div class="col-md-3 offset-md-1">
                                 <button type="submit" class="btn btn-primary float-right">
-                                    {{ __('Create Event') }}
+                                    {{ __('Update Event') }}
                                 </button>
                             </div>
                         </div>
