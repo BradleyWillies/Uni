@@ -15,11 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Auth::routes();
+Route::get('/', [\App\Http\Controllers\StudentController::class, 'index'])->name('student.event.index');
 
 Route::prefix('/dashboard')->group(function () {
     Route::get('', [EventController::class, 'index'])->name('dashboard.event.index');
@@ -28,3 +24,5 @@ Route::prefix('/dashboard')->group(function () {
     Route::get('/event/show/{id}', [EventController::class, 'show'])->name('dashboard.event.show');
     Route::post('/event/edit/{id}', [EventController::class, 'edit'])->name('dashboard.event.edit');
 });
+
+Auth::routes();

@@ -62,6 +62,10 @@
                             <div class="col-md-6">
                                 <input id="images" type="file" class="form-control @error('images') is-invalid @enderror" name="images[]" required autofocus multiple>
                                 <small style="font-size: 10px">Select multiple images from the explorer / finder by holding ctrl / ⌘</small>
+                                <small style="font-size: 10px">Existing images will be overwritten by new images</small>
+                                @foreach($event->images as $image)
+                                    <image src="{{ url('storage/' . $image->file_path) }}" alt="Event image" width="100" height="100"></image>
+                                @endforeach
                             </div>
                         </div>
 

@@ -16,4 +16,12 @@ class EventCategory extends Model
     {
         return $this->hasMany(Event::class);
     }
+
+    /**
+     * Get the images for the event category
+     */
+    public function images(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Image::class);
+    }
 }
