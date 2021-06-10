@@ -56,7 +56,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Image(s)') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('EventImage(s)') }}</label>
 
                             <div class="col-md-6">
                                 <input id="images" type="file" class="form-control @error('images') is-invalid @enderror" name="images[]" required autofocus multiple>

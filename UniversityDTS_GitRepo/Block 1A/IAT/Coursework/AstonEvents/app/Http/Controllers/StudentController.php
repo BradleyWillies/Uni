@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\EventCategory;
+use App\Models\Organiser;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -55,11 +57,15 @@ class StudentController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
+        $event = Event::with('images')->where('id', $id)->first();
+        $eventCategory = EventCategory::where('id', $event->event_category_id)->first();
+        $organiser = Organiser::where('id', $event->organiser_id)->first();
+        $organiserEmail = (User::where('id', $organiser->user_id)->first())->email;
+        return view('event.show', compact('event', 'eventCategory', 'organiser', 'organiserEmail'));
     }
 
     /**
@@ -94,5 +100,18 @@ class StudentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Adds 1 to the interest ranking of the event with the id of $id
+     *
+     * @param $id
+     */
+    public function addInterest($id)
+    {
+        $event = Event::find($id);
+        $event->interest_ranking += 1;
+        $event->save();
+        $this->show($id);
     }
 }

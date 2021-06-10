@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EventRequest;
 use App\Models\Event;
 use App\Models\EventCategory;
-use App\Models\Image;
+use App\Models\EventImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,10 +17,22 @@ class EventController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $events = Event::where('organiser_id', '=', auth()->user()->organiser->id)->orderBy('date_time', 'DESC')->get();
-        return view('organiser.dashboard', compact('events'));
+        $eventQuery = Event::query();
+
+        if ($request->get('event_category_id')) {
+            $eventQuery->where('event_category_id', $request->get('event_category_id'));
+        }
+        if ($request->get('event_heading')) {
+            $sortOrder = $request->get('sort') ?? 'DESC';
+            $eventQuery->orderBy($request->get('event_heading'), $sortOrder);
+        }
+
+        $events = $eventQuery->where('organiser_id', '=', auth()->user()->organiser->id)->get();
+        $eventCategories = EventCategory::all();
+
+        return view('organiser.dashboard', compact('events', 'eventCategories'));
     }
 
     /**
@@ -50,7 +62,7 @@ class EventController extends Controller
         foreach ($images as $image) {
             $path = 'event_images/' . $event->id;
             Storage::disk('public')->put($path, $image);
-            $imageRecord = new Image();
+            $imageRecord = new EventImage();
             $imageRecord->event_id = $event->id;
             $imageRecord->file_path = $path . '/' . $image->hashName();
             $imageRecord->save();
@@ -88,7 +100,7 @@ class EventController extends Controller
         $event->images()->delete();
         foreach ($images as $image) {
             Storage::disk('public')->put($path, $image);
-            $imageRecord = new Image();
+            $imageRecord = new EventImage();
             $imageRecord->event_id = $event->id;
             $imageRecord->file_path = $path . '/' . $image->hashName();
             $imageRecord->save();

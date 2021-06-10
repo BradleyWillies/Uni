@@ -67,7 +67,7 @@
                                 </div>
                             </form>
 
-                            <table border='1' style='border-collapse:collapse; text-align:center'>
+                            <table class="table table-striped table-bordered">
                                 <tr>
                                     <th>Name</th>
                                     <th>Description</th>
@@ -78,7 +78,7 @@
 
                                 @foreach ($events as $event)
                                     <tr>
-                                        <td><a href="{{route("dashboard.event.show", $event->id)}}">{{Str::limit($event['name'], 50)}}</a></td>
+                                        <td><a href="{{route("student.event.show", $event->id)}}">{{Str::limit($event['name'], 50)}}</a></td>
                                         <td>{{Str::limit($event['description'], 50)}}</td>
                                         <td>{{Str::limit($event['location'], 50)}}</td>
                                         <td>{{$event['date_time']->format("d-m-Y H:i")}}</td>

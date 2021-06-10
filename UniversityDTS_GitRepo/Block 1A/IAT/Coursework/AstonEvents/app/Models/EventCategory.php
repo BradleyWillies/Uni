@@ -22,6 +22,6 @@ class EventCategory extends Model
      */
     public function images(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(EventImage::class);
     }
 }
