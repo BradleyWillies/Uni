@@ -7,6 +7,7 @@ use App\Models\EventCategory;
 use App\Models\Organiser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -59,8 +60,13 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, int $id)
     {
+        if ($request->isMethod('post')) {
+            $event = Event::find($id);
+            $event->increment('interest_ranking');
+            session(['addedInterest' . $id . Auth::id() => 'true']);
+        }
         $event = Event::with('images')->where('id', $id)->first();
         $eventCategory = EventCategory::where('id', $event->event_category_id)->first();
         $organiser = Organiser::where('id', $event->organiser_id)->first();
@@ -103,15 +109,14 @@ class StudentController extends Controller
     }
 
     /**
-     * Adds 1 to the interest ranking of the event with the id of $id
+     * Return the contact view for contacting an event organiser.
      *
      * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function addInterest($id)
+    public function showContact($id)
     {
         $event = Event::find($id);
-        $event->interest_ranking += 1;
-        $event->save();
-        $this->show($id);
+        return view('event.contact', compact('event'));
     }
 }

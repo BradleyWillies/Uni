@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\StudentController::class, 'index'])->name('student.event.index');
 Route::get('/event/show/{id}', [StudentController::class, 'show'])->name('student.event.show');
-Route::post('/event/show/{id}', [StudentController::class, 'addInterest'])->name('student.event.addInterest');
+Route::post('/event/show/{id}', [StudentController::class, 'show'])->name('student.event.addInterest');
+Route::post('/event/contact/{id}', [StudentController::class, 'showContact'])->name('student.event.contact');
 
 Route::prefix('/dashboard')->group(function () {
     Route::get('', [EventController::class, 'index'])->name('dashboard.event.index');

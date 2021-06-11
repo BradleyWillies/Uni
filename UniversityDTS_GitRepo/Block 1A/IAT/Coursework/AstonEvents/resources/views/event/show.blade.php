@@ -65,15 +65,33 @@
                         </div>
                     </div>
 
-                    <form method="POST" action="{{ route('student.event.addInterest', $event->id) }}">
-                        @csrf
+                    @if (session()->has('addedInterest' . $event->id . Auth::id()))
                         <div class="form-group row mb-0">
-                            <div class="col-md-3 offset-3">
-                                <button type="submit" class="btn btn-primary float-right">
-                                    {{ __('Submit Interest') }}
-                                </button>
+                            <div class="col-md-5 offset-3">
+                                <b>Thanks for showing your interest!</b>
                             </div>
                         </div>
+                    @else
+                        <form method="POST" action="{{ route('student.event.show', $event->id) }}">
+                            @csrf
+                            <div class="form-group row mb-0">
+                                <div class="col-md-4 offset-3">
+                                    <button type="submit" class="btn btn-primary float-right">
+                                        {{ __('Submit Interest in Event') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    @endif
+
+                    <form method="POST" action="{{ route('student.event.contact', $event->id) }}">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-danger float-right">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"></path>
+                            </svg>
+                            Contact Event Organiser
+                        </button>
                     </form>
                 </div>
             </div>
