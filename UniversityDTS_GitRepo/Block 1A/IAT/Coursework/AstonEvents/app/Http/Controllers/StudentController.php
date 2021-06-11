@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactFormRequest;
+use App\Mail\ContactMail;
 use App\Models\Event;
 use App\Models\EventCategory;
 use App\Models\Organiser;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class StudentController extends Controller
 {
@@ -60,18 +63,28 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show(Request $request, int $id)
+    public function show(Request $request, $id)
     {
-        if ($request->isMethod('post')) {
-            $event = Event::find($id);
-            $event->increment('interest_ranking');
-            session(['addedInterest' . $id . Auth::id() => 'true']);
-        }
         $event = Event::with('images')->where('id', $id)->first();
         $eventCategory = EventCategory::where('id', $event->event_category_id)->first();
         $organiser = Organiser::where('id', $event->organiser_id)->first();
         $organiserEmail = (User::where('id', $organiser->user_id)->first())->email;
         return view('event.show', compact('event', 'eventCategory', 'organiser', 'organiserEmail'));
+    }
+
+    /**
+     * Adds 1 to the interest of the selected event.
+     *
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function addInterest(Request $request, $id)
+    {
+        $event = Event::find($id);
+        $event->increment('interest_ranking');
+        session(['addedInterest' . $id . Auth::id() => 'true']);
+        return redirect()->route('student.event.show', $id);
     }
 
     /**
@@ -118,5 +131,15 @@ class StudentController extends Controller
     {
         $event = Event::find($id);
         return view('event.contact', compact('event'));
+    }
+
+    public function sendContactMail(ContactFormRequest $request, $id)
+    {
+        $event = Event::with('organiser')->where('id', $id)->first();
+        $user = User::where('id', $event->organiser->user_id)->first();
+        $eventOrganiserEmail = $user->email;
+
+        Mail::to('bradley.willies@gmail.com')->send(new ContactMail($request->get('name'), $request->get('message'),  $request->get('email'), $event->name));
+        return redirect()->route('student.event.contact', $id);
     }
 }

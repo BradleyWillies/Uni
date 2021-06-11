@@ -119,6 +119,9 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/dbal" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/event-manager" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/deprecations" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mailjet/mailjet-swiftmailer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mailjet/laravel-mailjet" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mailjet/mailjet-apiv3-php" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

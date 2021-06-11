@@ -72,7 +72,7 @@
                             </div>
                         </div>
                     @else
-                        <form method="POST" action="{{ route('student.event.show', $event->id) }}">
+                        <form method="POST" action="{{ route('student.event.addInterest', $event->id) }}">
                             @csrf
                             <div class="form-group row mb-0">
                                 <div class="col-md-4 offset-3">
@@ -84,7 +84,7 @@
                         </form>
                     @endif
 
-                    <form method="POST" action="{{ route('student.event.contact', $event->id) }}">
+                    <form method="GET" action="{{ route('student.event.contact', $event->id) }}">
                         @csrf
                         <button type="submit" class="btn btn-outline-danger float-right">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">

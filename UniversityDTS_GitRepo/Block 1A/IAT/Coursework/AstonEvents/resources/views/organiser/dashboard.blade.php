@@ -15,7 +15,7 @@
                     @endif
 
                     <h3>{{ ('Welcome ' . auth()->user()->organiser->name) }}</h3><br>
-
+                    @if (count($events) > 0)
                         <form method="GET" action="{{ route('dashboard.event.index') }}">
                             <div class="form-group row">
                                 <label for="event_category_id" class="col-md-4 col-form-label text-md-right">{{ __('Filter by category') }}</label>
@@ -60,13 +60,15 @@
                                 <div class="col-md-2">
                                     <a href="{{route('dashboard.event.index')}}" class="btn btn-secondary">{{ __('Reset') }}</a>
                                 </div>
-                                <div class="col-md-3 offset-1">
-                                    <a href="{{route('dashboard.event.create')}}" class="btn btn-success float-right">{{ __('Create Event') }}</a>
-                                </div>
                             </div>
                         </form>
+                    @else
+                        {{ __('You do not have any events...') }}
+                    @endif
 
-
+                    <div class="col-md-3 offset-1 float-right">
+                        <a href="{{route('dashboard.event.create')}}" class="btn btn-success float-right">{{ __('Create Event') }}</a>
+                    </div>
                 </div>
             </div>
 

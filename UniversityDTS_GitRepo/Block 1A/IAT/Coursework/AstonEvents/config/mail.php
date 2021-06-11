@@ -70,6 +70,10 @@ return [
         'array' => [
             'transport' => 'array',
         ],
+
+        'mailjet' => [
+            'transport' => 'mailjet',
+        ],
     ],
 
     /*
@@ -84,7 +88,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'bradley.willies@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 

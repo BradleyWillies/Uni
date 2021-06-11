@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header"><a href="{{ route('student.event.show', $event->id) }}">{{ $event->name }}</a> -> {{ __('Contact') }}</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('dashboard.event.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('student.event.contact.sendMail', $event->id) }}">
                         @csrf
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
