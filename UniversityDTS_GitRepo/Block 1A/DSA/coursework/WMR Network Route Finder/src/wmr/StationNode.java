@@ -5,34 +5,79 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
+/**
+ * A StationNode represents a single node within a collection of StationNodes. A StationNode 
+ * holds a reference to a Station and knows which Lines it is on, which StationNodes it is 
+ * connected to, and whether it has been visited by some collection (for node traversal).
+ * 
+ * @author Bradley Willies
+ * @version 27/06/2021
+ */
 public class StationNode {
 	
 	// the station this node references
 	private Station station;
+	
+	// a set of the names of the lines the Station in this node is on
 	private HashSet<String> lineNames = new HashSet<String>();
+	
+	// a HashMap linking the name of a line to a set of connecting StationNodes
 	private HashMap<String, HashSet<StationNode>> lineStationNodes = new HashMap<String, HashSet<StationNode>>();
+	
+	// a HashMap linking the name of a line to the ordered list of times this node's Station arrives at
 	private HashMap<String, ArrayList<String>> arrivalTimes = new HashMap<String, ArrayList<String>>();
+	
+	// a boolean value used during node traversal to represent whether this node has been visited or not
 	private boolean visited = false;
 	
+	/**
+	 * constructor which creates a StationNode with a reference to the provided Station
+	 * 
+	 * @param station
+	 */
 	public StationNode(Station station) {
 		this.station = station;
 	}
 	
+	/**
+	 * 
+	 * @return the Station this node references
+	 */
 	public Station getStation() {
 		return station;
 	}
+	
+	/**
+	 * 
+	 * @return the HashMap of line names to list of arrival times for this StationNode's Station
+	 */
 	public HashMap<String, ArrayList<String>> getArrivalTimes() {
 		return arrivalTimes;
 	}
 	
+	/**
+	 * adds the provided line name to the HashSet of lines this StationNode's Station is on
+	 * 
+	 * @param lineName
+	 */
 	public void addLineName(String lineName) {
 		lineNames.add(lineName);
 	}
 	
+	/**
+	 * 
+	 * @return the set of line names this StationNode's Station is on
+	 */
 	public HashSet<String> getLineNames() {
 		return lineNames;
 	}
 	
+	/**
+	 * Adds the provided StationNode to the set of Station nodes mapped to the provided line name
+	 * 
+	 * @param lineName
+	 * @param connectedNode
+	 */
 	public void addLineStationNode(String lineName, StationNode connectedNode) {
 		// if the line doesn't exist in lineStationNodes, add the new line with an empty HashSet
 		if (!lineStationNodes.containsKey(lineName)) {
@@ -42,6 +87,15 @@ public class StationNode {
 		lineStationNodes.get(lineName).add(connectedNode);
 	}
 
+	/**
+	 * Calculates the arrival times for this StationNode's Station given the provided line, the time 
+	 * trains start and end service, and the travel time from the first node on the line to this node
+	 * 
+	 * @param travelTime
+	 * @param openTime
+	 * @param closeTime
+	 * @param lineName
+	 */
 	public void addArrivalTimes(int travelTime, String openTime, String closeTime, String lineName) {
 		// add the lineName to the arrivalTimes hashmap if it doesn't exist
 		if (!arrivalTimes.containsKey(lineName)) {
