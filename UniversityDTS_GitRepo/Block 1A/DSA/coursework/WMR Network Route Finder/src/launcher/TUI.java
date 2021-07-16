@@ -1,7 +1,7 @@
 /**
  * 
  */
-package wmr;
+package launcher;
 
 import java.util.Scanner;
 
