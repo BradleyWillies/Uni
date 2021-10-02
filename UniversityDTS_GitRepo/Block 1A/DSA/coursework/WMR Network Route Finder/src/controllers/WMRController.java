@@ -74,15 +74,19 @@ public class WMRController implements Controller {
 			Files.readAllLines(Paths.get("WMRData/WMRlines.csv"), StandardCharsets.US_ASCII).listIterator().forEachRemaining(
 				s -> {
 					// ignore the header row in the data file
-					if (!s.contains("TRAIN LINE,FROM/TO STATION,TO/FROM STATION,TRAVEL TIME (MINS)")) {	
+					if (!s.contains("TRAIN LINE,FROM/TO STATION,TO/FROM STATION,TRAVEL TIME (MINS)")) {
+						// split the file line token up by a comma
 						String[] fileLineTokens = s.split(",");
+						// remove any double quotes
 						fileLineTokens[0] = fileLineTokens[0].replaceAll("\"", "");
+						// create a WMRlinesFileLine object from the line tokens
 						WMRlinesFileLine fileLine = new WMRlinesFileLine(
 							fileLineTokens[0].trim(),
 							fileLineTokens[1].trim(),
 							fileLineTokens[2].trim(),
 							Integer.parseInt(fileLineTokens[3])
 						);
+						// add the WMRlinesFileLine to the arrayList
 						wmrLinesFileLines.add(fileLine);
 					}
 				}
@@ -119,11 +123,9 @@ public class WMRController implements Controller {
 			// if the trainLineName is not in the lineNameCharacters map, add it and iterate the character variable
 			if (!lineNameCharacters.values().contains(trainLineName)) {
 				lineNameCharacters.put(lineNameCharacter++, trainLineName);
-			}		
+			}
 			
-			// add the stations to the stationsLines HashMap
-			
-			// create the *connection* that the current file line represents
+			// create the connection that the current file line represents
 			Connection connection = new Connection(stations.get(fromStation), stations.get(toStation), travelTime);
 			
 			// create a new line if the line doesn't exist in lineJourneys then add the connection to its line
@@ -132,12 +134,13 @@ public class WMRController implements Controller {
 			}
 			lineConnections.get(trainLineName).add(connection);
 			
-			// create *line* if it doesn't exist
+			// create line if it doesn't exist
 			if (!lines.containsKey(trainLineName)) {
 				lines.put(trainLineName, new Line(trainLineName));
 			}
 		}
 		
+		// now that the data structure is created we can create the sub lines for each line
 		createSubLines();
 	}
 
@@ -145,13 +148,14 @@ public class WMRController implements Controller {
 	 * Method to read the WMRstationsWithStepFreeAccess.csv file and add each station name to the sfaStationNames HashSet
 	 */
 	private void readSFAFile() {
-		
 		try {
-			// read the sfa data file
+			// read the SFA data file
 			Files.readAllLines(Paths.get("WMRData/WMRstationsWithStepFreeAccess.csv"), StandardCharsets.US_ASCII).listIterator().forEachRemaining(
 				s -> {
-					if (!s.contains("STATION WITH STEP-FREE ACCESS")) {	// ignore the header row in the data file
-						sfaStationNames.add(s.trim());	// add the station name to the set of sfa stations, removing any leading or trailing whitespace
+					// ignore the header row in the data file
+					if (!s.contains("STATION WITH STEP-FREE ACCESS")) {
+						// add the station name to the set of SFA stations, removing any leading or trailing whitespace
+						sfaStationNames.add(s.trim());	
 					}
 				}
 			);
@@ -165,8 +169,11 @@ public class WMRController implements Controller {
 	 * Method to update the stepFreeAccess field of all the stations in the sfaStationNames HashSet
 	 */
 	private void updateStationsWithSFA() {
+		// for each station name in the sfaStationNames hashSet
 		for (String stationName : sfaStationNames) {
+			// if the HashMap of all stations contains the key of the SFA station name
 			if (stations.containsKey(stationName)) {
+				// set that station SFA boolean to true
 				stations.get(stationName).setSFA(true);
 			}
 		}
@@ -416,6 +423,7 @@ public class WMRController implements Controller {
 						// add to the total time
 						totalTime += connection.getTravelTime();
 						
+						// if it is the last connection, add the tofrom station to the string builder
 						if (i + 1 == subLine.getConnections().size()) {
 							connectionsSB.append(connection.getToFromStation().getName());
 						}

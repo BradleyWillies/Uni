@@ -12,8 +12,8 @@ import stack.StackADT;
  * RouteFinder can be used to locate a route from a start station to a end station 
  * on a graph of linked stations and lines.
  * 
- * @author B Willies
- * @version 15-07-2021
+ * @author Bradley Willies
+ * @version 27/06/2021
  */
 public class RouteFinder {
 
@@ -161,6 +161,14 @@ public class RouteFinder {
 		return nextNode;
 	}
 	
+	/**
+	 * Attempts to get a StationNode connected to the provided currentNode on the WMR graph 
+	 * which hasn't already been visited, or returns null if they have all been visited.
+	 * 
+	 * @param currentNode
+	 * @return the next StationNode connected to the currentNode which hasn't been visited 
+	 * already, or null if there are no more nodes to visit
+	 */
 	private StationNode getNextStationNode(StationNode currentNode) {
 		// create the node to return
 		StationNode nextNode = null;
