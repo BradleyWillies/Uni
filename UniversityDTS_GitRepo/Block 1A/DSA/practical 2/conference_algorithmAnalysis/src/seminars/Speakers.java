@@ -7,7 +7,7 @@ import java.util.Set;
 import java.util.HashSet;
 
 /**
- * Class Speakers contains a range of class methods (i.e. methods defined as 'static') 
+ * Class Speakers contains a range of class methods (i.e. methods defined as 'static" 
  * which model the quirks of a range of speakers:
  * - Some speakers like to 'shout' (modelled by capitalising all letters in their speech).
  * - Some speakers like to 'shout' out long words only (i.e. words with >6 letters).

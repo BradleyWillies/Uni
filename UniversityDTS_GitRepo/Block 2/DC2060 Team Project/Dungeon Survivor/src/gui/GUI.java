@@ -9,7 +9,7 @@ public class GUI {
 
 	private int buttonPress;
 	private boolean isButtonPressed = false;
-	private JFrame window = new JFrame("Dungeon Quest 420");
+	private JFrame window = new JFrame("Dungeon Survivor");
 	private JTextArea displayText = new JTextArea();
 	private JScrollPane scroll = new JScrollPane(displayText);
 	private JButton one = new JButton("1");

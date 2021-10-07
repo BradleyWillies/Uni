@@ -155,7 +155,7 @@ public class WordPicker {
 			starts = (new Date()).getTime();
 			// Word picking...
 			for(int i=0; i < PICKS; i++) {
-				results += String.format(wp.pick() + '\t');	
+				results += String.format(wp.pick() + '\t";	
 			}
 			// End time - Gets the current moment...
 			ends = (new Date()).getTime();
@@ -171,7 +171,7 @@ public class WordPicker {
 			starts = (new Date()).getTime();
 			// Removing words...
 			for (int i=0; i < PICKS; i++) {
-				results += String.format(wp.remove() + '\t');	
+				results += String.format(wp.remove() + '\t";	
 			}
 			ends = (new Date()).getTime();
 
